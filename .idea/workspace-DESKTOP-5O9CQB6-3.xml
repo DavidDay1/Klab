@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c564a086-c718-4bcb-8440-4e35df75331b" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="prog0" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2bK2mBVLY97GsqBTgrsi9nAl1gj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "android.gradle.sync.needed": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\David\OneDrive\Semester6\Data Communications\prog0\src\main\java\klab\serialization" />
+      <recent name="C:\Users\David\OneDrive\Semester6\Data Communications\prog0\src" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.klab.serialization.test in prog0.main">
+    <configuration name="MessageTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="prog0.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value=".*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="klab.serialization.test" />
+      <option name="MAIN_CLASS_NAME" value="klab.serialization.test.MessageTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResponseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="prog0.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value=".*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="klab.serialization.test" />
+      <option name="MAIN_CLASS_NAME" value="klab.serialization.test.ResponseTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResponseTest.testEncode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="prog0.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="klab.serialization.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="klab.serialization.test" />
+      <option name="MAIN_CLASS_NAME" value="klab.serialization.test.ResponseTest" />
+      <option name="METHOD_NAME" value="testEncode" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResultTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="prog0.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="klab.serialization.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="klab.serialization.test" />
+      <option name="MAIN_CLASS_NAME" value="klab.serialization.test.ResultTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="klab.serialization.test in prog0.main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="prog0.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="klab.serialization.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="klab.serialization.test" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.klab.serialization.test in prog0.main" />
+        <item itemvalue="JUnit.ResponseTest.testEncode" />
+        <item itemvalue="JUnit.ResultTest" />
+        <item itemvalue="JUnit.ResponseTest" />
+        <item itemvalue="JUnit.MessageTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c564a086-c718-4bcb-8440-4e35df75331b" name="Changes" comment="" />
+      <created>1705949610311</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705949610311</updated>
+      <workItem from="1705949610520" duration="3286000" />
+      <workItem from="1705960790189" duration="358000" />
+      <workItem from="1706118267522" duration="27000" />
+      <workItem from="1706466306603" duration="1976000" />
+      <workItem from="1706468706416" duration="20904000" />
+      <workItem from="1706556854647" duration="5799000" />
+      <workItem from="1706573244653" duration="159000" />
+      <workItem from="1706808169818" duration="286000" />
+      <workItem from="1706813524385" duration="2206000" />
+      <workItem from="1706839650754" duration="1975000" />
+      <workItem from="1706886774216" duration="878000" />
+      <workItem from="1707090814716" duration="1826000" />
+      <workItem from="1707159314717" duration="4495000" />
+      <workItem from="1707441410247" duration="4655000" />
+      <workItem from="1707674413668" duration="16262000" />
+      <workItem from="1707754781092" duration="100000" />
+      <workItem from="1707755041559" duration="8108000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="klab.serialization.Response" memberName="type" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/prog0$ResultTest_testToString.ic" NAME="ResultTest.testToString Coverage Results" MODIFIED="1706483958202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>klab.serialization.test.*</FILTER>
+    </SUITE>
+  </component>
+</project>
