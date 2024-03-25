@@ -74,6 +74,9 @@ public class ThreadFunctions {
         return () -> {
             while (s.isConnected()) {
                 try {
+                    if (in.size() == 0) {
+                        continue;
+                    }
                     Message m = Message.decode(in);
                     if (m instanceof Response) {
                         pool.submit(new ThreadFunctions().handleResponse(m, searchList));
