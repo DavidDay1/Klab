@@ -2,8 +2,11 @@ package klab.app;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class for searching files in a directory
@@ -46,7 +49,12 @@ public class FileSearch implements FilenameFilter {
 
     public static List<File> search(File dir, String name) {
         FileSearch filter = new FileSearch(name);
+        List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles(filter)));
 
-        return List.of(Objects.requireNonNull(dir.listFiles(filter)));
+        files = files.stream()
+                .sorted(Comparator.comparingLong(File::length))
+                .toList();
+
+        return files;
     }
 }
