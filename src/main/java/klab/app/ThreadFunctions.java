@@ -32,7 +32,8 @@ public class ThreadFunctions {
      * @return runnable
      */
 
-    public Runnable handleOutSearch(Scanner user, Socket s, MessageOutput out, MessageFactory mf, HashMap<String, Search> searchList) {
+    public Runnable handleOutSearch(Scanner user, Socket s, MessageOutput out, MessageFactory mf, HashMap<String,
+            Search> searchList) {
         return () -> {
             while (s.isConnected()) {
                 try {
@@ -70,14 +71,18 @@ public class ThreadFunctions {
      * @return runnable
      */
 
-    public Runnable handleIn(MessageInput in, MessageOutput out, Socket s, File directory, HashMap<String, Search> searchList, InetSocketAddress responseHost) {
+    public Runnable handleIn(MessageInput in, MessageOutput out, Socket s, File directory,
+                              HashMap<String, Search> searchList, InetSocketAddress responseHost) {
         return () -> {
             while (s.isConnected()) {
                 try {
                     if (in.size() == 0) {
                         continue;
                     }
-                    Message m = Message.decode(in);
+                    Message m;
+                    synchronized (in) {
+                        m = Message.decode(in);
+                    }
                     if (m instanceof Response) {
                         pool.submit(new ThreadFunctions().handleResponse(m, searchList));
                     } else if (m instanceof Search) {
@@ -107,7 +112,8 @@ public class ThreadFunctions {
      * @return runnable
      */
 
-    public Runnable handleSearch(Message m, MessageOutput out, Socket s, File directory, InetSocketAddress responseHost) {
+    public Runnable handleSearch(Message m, MessageOutput out, Socket s, File directory,
+                                  InetSocketAddress responseHost) {
         return () -> {
             try {
             //confirming message type
@@ -119,7 +125,9 @@ public class ThreadFunctions {
 
             //user looks for "" don't look for files
             if (search.getSearchString().isEmpty()) {
-                response.encode(out);
+                synchronized (out) {
+                    response.encode(out);
+                }
                 //System.out.print(MessageFactory.printMessage(search, response));
             } else {
                 //check files with matching search string
@@ -129,7 +137,11 @@ public class ThreadFunctions {
                     //if there are files that exist with matching search string
                     //send response with results
                     MessageFactory.generateResults(response, results);
-                    response.encode(out);
+                    logger.info("Sending response: " + response + " to " + s.getRemoteSocketAddress() + " for search:" +
+                            " " + search.getSearchString());
+                    synchronized (out) {
+                        response.encode(out);
+                    }
                     logger.log(Level.INFO, "Sending response: " + response + " to "
                             + s.getRemoteSocketAddress() + " for search: " + search.getSearchString());
                     //System.out.print(MessageFactory.printMessage(search, response));
