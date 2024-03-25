@@ -77,12 +77,12 @@ public class Node {
      */
     public static void main(String[] args) throws IOException {
         if (args.length != 3) {
-            logger.log(Level.INFO, "Usage: <doc> [<neighbor ip/name> <neighbor port>");
+            System.err.println("Usage: <doc> [<neighbor ip/name> <neighbor port>");
             System.exit(1);
         }
         File directory = new File(args[0]);
         if (!directory.exists()) {
-            logger.log(Level.INFO, "Directory provided does not exist");
+            System.err.println("Directory provided does not exist");
         }
 
         String neighbor = args[1];

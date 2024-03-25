@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -76,9 +77,6 @@ public class ThreadFunctions {
         return () -> {
             while (s.isConnected()) {
                 try {
-                    if (in.size() == 0) {
-                        continue;
-                    }
                     Message m;
                     synchronized (in) {
                         m = Message.decode(in);
@@ -98,6 +96,7 @@ public class ThreadFunctions {
                 } catch (BadAttributeValueException e) {
                     logger.log(Level.WARNING, "Invalid message: " + e.getMessage());
                 }
+
             }
         };
     }
@@ -128,7 +127,6 @@ public class ThreadFunctions {
                 synchronized (out) {
                     response.encode(out);
                 }
-                //System.out.print(MessageFactory.printMessage(search, response));
             } else {
                 //check files with matching search string
                 List<File> results = FileSearch.search(directory, search.getSearchString());
@@ -144,7 +142,6 @@ public class ThreadFunctions {
                     }
                     logger.log(Level.INFO, "Sending response: " + response + " to "
                             + s.getRemoteSocketAddress() + " for search: " + search.getSearchString());
-                    //System.out.print(MessageFactory.printMessage(search, response));
                 } else {
                     logger.info("No files found for Search: " + search.getSearchString());
                 }

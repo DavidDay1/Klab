@@ -1,2 +1,2 @@
-Mar 25, 2024 4:58:19 PM klab.app.Node main
-INFO: Connected to neighbor at: 192.168.56.1:4000
+Mar 25, 2024 6:29:03 PM klab.app.Node main
+SEVERE: Unable to communicate: 192.168.56.1:4000
