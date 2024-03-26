@@ -52,10 +52,7 @@ public enum RoutingService {
             return RoutingService.BREADTHFIRST;
         } else if (code == 1) {
             return RoutingService.DEPTHFIRST;
-        } else if (code == -1) {
-            throw new IOException("Read error");
-        }
-        else {
+        } else {
             throw new BadAttributeValueException("Invalid Routing Service Code", "Routing Service Code");
         }
     }
