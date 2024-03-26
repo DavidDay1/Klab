@@ -91,6 +91,9 @@ abstract public class Message {
         }
 
         int type = in.read();
+        if (type == -1) {
+            throw new IOException("MessageInput is null or too short");
+        }
         byte[] id = new byte[ID_LENGTH];
         id = in.readBytes(ID_LENGTH);
         int ttl = in.read();
