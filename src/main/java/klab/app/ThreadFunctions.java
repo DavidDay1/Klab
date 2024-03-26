@@ -90,11 +90,14 @@ public class ThreadFunctions {
                         pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost));
                     }
                 } catch (IOException e) {
-                    if (s.isClosed()) {
-                        logger.info("Disconnected from neighbor");
-                        pool.shutdownNow();
+                        logger.info("Disconnected from neighbor " + e.getMessage());
+                    try {
+                        s.close();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    logger.log(Level.INFO, "Unable to communicate: " + e.getMessage());
+                    pool.shutdownNow();
+                    break;
                 } catch (BadAttributeValueException e) {
                     logger.log(Level.WARNING, "Invalid message: " + e.getMessage());
                 }
