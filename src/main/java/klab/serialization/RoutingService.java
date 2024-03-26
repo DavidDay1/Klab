@@ -1,5 +1,7 @@
 package klab.serialization;
 
+import java.io.IOException;
+
 /**
  * Routing Service
  * @version 1.0
@@ -45,12 +47,15 @@ public enum RoutingService {
      * @throws BadAttributeValueException if bad code value
      */
 
-    public static RoutingService getRoutingService(int code) throws BadAttributeValueException {
+    public static RoutingService getRoutingService(int code) throws BadAttributeValueException, IOException {
         if (code == 0) {
             return RoutingService.BREADTHFIRST;
         } else if (code == 1) {
             return RoutingService.DEPTHFIRST;
-        } else {
+        } else if (code == -1) {
+            throw new IOException("Read error");
+        }
+        else {
             throw new BadAttributeValueException("Invalid Routing Service Code", "Routing Service Code");
         }
     }

@@ -75,29 +75,29 @@ public class ThreadFunctions {
     public Runnable handleIn(MessageInput in, MessageOutput out, Socket s, File directory,
                               HashMap<String, Search> searchList, InetSocketAddress responseHost) {
         return () -> {
-            while (s.isConnected()) {
                 try {
-                    Message m;
-                    synchronized (in) {
-                        m = Message.decode(in);
+                    while (s.isConnected()) {
+                        Message m;
+                        synchronized (in) {
+                            m = Message.decode(in);
+                        }
+                        if (m instanceof Response) {
+                            pool.submit(new ThreadFunctions().handleResponse(m, searchList));
+                        } else if (m instanceof Search) {
+                            pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost));
+                        }
                     }
-                    if (m instanceof Response) {
-                        pool.submit(new ThreadFunctions().handleResponse(m, searchList));
-                    } else if (m instanceof Search) {
-                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost));
-                    }
-                } catch (IOException e) {
+                } catch(IOException e){
                     if (s.isClosed()) {
                         logger.info("Disconnected from neighbor");
                         pool.shutdownNow();
-                        break;
                     }
-                    logger.log(Level.SEVERE, "Unable to communicate: " + e.getMessage());
-                } catch (BadAttributeValueException e) {
+                    logger.log(Level.INFO, "Unable to communicate: " + e.getMessage());
+                    System.exit(1);
+                } catch(BadAttributeValueException e){
                     logger.log(Level.WARNING, "Invalid message: " + e.getMessage());
                 }
 
-            }
         };
     }
 
