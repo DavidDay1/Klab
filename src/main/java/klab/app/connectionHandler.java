@@ -57,7 +57,7 @@ public class connectionHandler {
             while (!downloadSocket.isClosed()) {
                 try {
                     Socket s = downloadSocket.accept();
-                    establishConnection(s, directory);
+                    pool.submit(DS.uploadFile(s.getOutputStream()));
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
                 }

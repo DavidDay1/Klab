@@ -8,13 +8,23 @@ public class DownloadService {
     private Executor executor = Executors.newFixedThreadPool(4);
 
 
-    public Runnable downloadFile(String downloadNode, String downloadPort, String fileID, String fileName) {
-        return () -> {
+    public void downloadFile(String downloadNode, String downloadPort, String fileID, String fileName) {
+        executor.execute(() -> {
             try {
                 // Download file
             } catch (Exception e) {
                 // Handle exception
             }
-        };
+        });
+    }
+
+    public void uploadFile(String fileID, String fileName) {
+        executor.execute(() -> {
+            try {
+                // Upload file
+            } catch (Exception e) {
+                // Handle exception
+            }
+        });
     }
 }
