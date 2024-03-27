@@ -25,13 +25,7 @@ public class connectionHandler {
             int peerPort = Integer.parseInt(user.next());
 
             Socket s = new Socket(peerIp, peerPort);
-            synchronized (peerList) {
-                peerList.add(new Peer(s));
-            }
-            System.out.println("Connected to peer: " + peerIp + ":" + peerPort + " Peer List Size: " + peerList.size());
-            pool.submit(() -> tf.handleIn(new MessageInput(s.getInputStream()),
-                    new MessageOutput(s.getOutputStream()), s, directory,
-                    Node.searchList, new InetSocketAddress(s.getInetAddress(), s.getPort())));
+            establishConnection(s, directory);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
         }
@@ -42,18 +36,22 @@ public class connectionHandler {
             while (!nodeSocket.isClosed()) {
                 try {
                     Socket s = nodeSocket.accept();
-                    synchronized (peerList) {
-                        peerList.add(new Peer(s));
-                    }
-                    pool.submit(() -> tf.handleIn(new MessageInput(s.getInputStream()),
-                            new MessageOutput(s.getOutputStream()), s, directory, Node.searchList,
-                            new InetSocketAddress(s.getInetAddress(), s.getPort())));
-                    System.out.println("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
-                            "Size: " + peerList.size());
+                    establishConnection(s, directory);
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
                 }
             }
         };
+    }
+
+    public void establishConnection(Socket s, File directory) throws IOException {
+        synchronized (peerList) {
+            peerList.add(new Peer(s));
+        }
+        pool.submit(tf.handleIn(new MessageInput(s.getInputStream()),
+                new MessageOutput(s.getOutputStream()), s, directory, Node.searchList,
+                new InetSocketAddress(s.getInetAddress(), s.getPort())));
+        System.out.println("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
+                "Size: " + peerList.size());
     }
 }

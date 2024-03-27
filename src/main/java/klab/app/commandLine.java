@@ -30,10 +30,9 @@ public class commandLine implements Runnable {
                     //TODO: Implement download
                     break;
                 default:
-                    System.out.println(Node.peerList.size());
                     for (Peer p : Node.peerList) {
                             try {
-                                System.out.println("Searching peer: " + p.getSocket().getInetAddress() + ":" + p.getSocket().getPort() + "to search for " + command);
+                                logger.info("Searching peer: " + p.getSocket().getInetAddress() + ":" + p.getSocket().getPort() + " to search for " + command);
                                 Node.pool.submit(Node.tf.handleOutSearch(command, p.getSocket(),
                                         new MessageOutput(p.getSocket().getOutputStream()),
                                         Node.mf, Node.searchList));

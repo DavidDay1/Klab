@@ -6,7 +6,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static klab.app.Node.logger;
 
 /**
  * Class for searching files in a directory
@@ -48,6 +49,8 @@ public class FileSearch implements FilenameFilter {
      */
 
     public static List<File> search(File dir, String name) {
+        logger.info("Searching for: " + name);
+        logger.info("In directory: " + dir.getName());
         FileSearch filter = new FileSearch(name);
         List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles(filter)));
 

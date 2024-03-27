@@ -9,11 +9,9 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 
-import static klab.app.Node.logger;
-import static klab.app.Node.pool;
+import static klab.app.Node.*;
 
 /**
  * Class for handling threads
@@ -37,8 +35,8 @@ public class ThreadFunctions {
     public Runnable handleOutSearch(String command, Socket s, MessageOutput out, MessageFactory mf, HashMap<String,
             Search> searchList) {
         return () -> {
-            while (s.isConnected()) {
                 try {
+                    logger.info("Searching for: " + command);
                     Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(),
                             mf.generateRoutingService(), command);
                     synchronized (out) {
@@ -50,7 +48,6 @@ public class ThreadFunctions {
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
                 }
-            }
         };
     }
 
@@ -72,14 +69,18 @@ public class ThreadFunctions {
             Message m;
             while (s.isConnected()) {
                 try {
-                    System.out.print("> ");
+                    logger.info("Waiting for message");
                     synchronized (in) {
                         m = Message.decode(in);
                     }
+                    logger.info("Received message: " + m);
                     if (m instanceof Response) {
-                        pool.submit(new ThreadFunctions().handleResponse(m, searchList));
+                        logger.info("Processing response" + m);
+                        pool.submit(new ThreadFunctions().handleResponse(m, searchList, mf));
                     } else if (m instanceof Search) {
-                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost));
+                        logger.info("Processing search" + m);
+                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost, mf));
+
                     }
                 } catch (IOException e) {
                         logger.info("Disconnected from neighbor " + e.getMessage());
@@ -110,7 +111,7 @@ public class ThreadFunctions {
      */
 
     public Runnable handleSearch(Message m, MessageOutput out, Socket s, File directory,
-                                 InetSocketAddress responseHost) {
+                                 InetSocketAddress responseHost, MessageFactory mf) {
         return () -> {
             try {
                 //confirming message type
@@ -119,20 +120,24 @@ public class ThreadFunctions {
 
                 //creating a response
                 Response response = new Response(m.getID(), m.getTTL() - 1, m.getRoutingService(), responseHost);
+                logger.info("Created response: " + response + " to " + s.getRemoteSocketAddress() + " for search: " +
+                        search.getSearchString());
 
                 //user looks for "" don't look for files
                 if (search.getSearchString().isEmpty()) {
+                    logger.info("Search String '' received sending " + response);
                     synchronized (out) {
                         response.encode(out);
                     }
                 } else {
                     //check files with matching search string
                     List<File> results = FileSearch.search(directory, search.getSearchString());
+                    logger.info("Searching for files with search string: " + search.getSearchString());
 
                     if (!results.isEmpty()) {
                         //if there are files that exist with matching search string
                         //send response with results
-                        MessageFactory.generateResults(response, results);
+                        mf.generateResults(response, results);
                         logger.info("Sending response: " + response + " to " + s.getRemoteSocketAddress() + " for search:" +
                                 " " + search.getSearchString());
                         synchronized (out) {
@@ -166,7 +171,7 @@ public class ThreadFunctions {
      */
 
 
-    public Runnable handleResponse(Message m, HashMap<String, Search> searchList) {
+    public Runnable handleResponse(Message m, HashMap<String, Search> searchList, MessageFactory mf) {
         return () -> {
             Response r = (Response) m;
 
@@ -178,7 +183,7 @@ public class ThreadFunctions {
             }
             logger.log(Level.INFO, "Received response message " + r);
             logger.log(Level.INFO, "Received response for search: " + search.getSearchString() + " from " + r.getResponseHost());
-            System.out.print(MessageFactory.printMessage(search, r));
+            System.out.print(mf.printMessage(search, r));
         };
     }
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.*;
 
 public class logHandler {
-    protected static final Logger logger = Logger.getLogger("klab.app.Node");
+    protected static final Logger logger = Logger.getLogger("klab.app");
 
     static {
         try {
@@ -14,7 +14,7 @@ public class logHandler {
             }
 
 
-            Handler h = new FileHandler("node.log", 0, 1, true);
+            Handler h = new FileHandler("node.log");
             h.setFormatter(new SimpleFormatter());
             h.setLevel(Level.ALL);
 

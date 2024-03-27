@@ -46,6 +46,7 @@ public class Node {
      */
     public static MessageFactory mf = new MessageFactory();
 
+
     /**
      * Thread functions for handling threads
      */
@@ -91,7 +92,7 @@ public class Node {
             commandLine commandLine = new commandLine();
             pool.submit(commandLine);
 
-            pool.submit(ch.listenForConnections(nodeSocket, directory));
+            pool.submit(ch.listenForConnections(nodeSocket, Node.directory));
 
 
         } catch (IOException e) {
