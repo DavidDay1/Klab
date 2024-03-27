@@ -32,6 +32,15 @@ public class Peer {
     public Socket getSocket() {
         return socket;
     }
+
+    public MessageInput getIn() {
+        return in;
+    }
+
+    public MessageOutput getOut() {
+        return out;
+    }
+
 }
 
 

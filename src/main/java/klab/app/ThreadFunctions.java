@@ -73,14 +73,19 @@ public class ThreadFunctions {
                     synchronized (in) {
                         m = Message.decode(in);
                     }
+
+                    if (m.getTTL() < 1) {
+                        logger.info("Message TTL expired: " + m);
+                        continue;
+                    }
+
                     logger.info("Received message: " + m);
                     if (m instanceof Response) {
                         logger.info("Processing response" + m);
-                        pool.submit(new ThreadFunctions().handleResponse(m, searchList, mf));
+                        pool.submit(new ThreadFunctions().handleResponse(m, s, searchList, Node.getMf()));
                     } else if (m instanceof Search) {
                         logger.info("Processing search" + m);
-                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost, mf));
-
+                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost, Node.getMf()));
                     }
                 } catch (IOException e) {
                         logger.info("Disconnected from neighbor " + e.getMessage());
@@ -118,10 +123,18 @@ public class ThreadFunctions {
                 Search search = (Search) m;
                 logger.info("Received search: " + search);
 
+                for (Peer p : peerList) {
+                    if (!p.getSocket().equals(s)) {
+                        logger.info("Forwarding search: " + search + " to " + p.getSocket().getRemoteSocketAddress());
+                        pool.submit(handleOutSearch(search.getSearchString(), p.getSocket(), p.getOut(), mf, searchList));
+                    }
+                }
+
                 //creating a response
                 Response response = new Response(m.getID(), m.getTTL() - 1, m.getRoutingService(), responseHost);
                 logger.info("Created response: " + response + " to " + s.getRemoteSocketAddress() + " for search: " +
                         search.getSearchString());
+
 
                 //user looks for "" don't look for files
                 if (search.getSearchString().isEmpty()) {
@@ -171,7 +184,7 @@ public class ThreadFunctions {
      */
 
 
-    public Runnable handleResponse(Message m, HashMap<String, Search> searchList, MessageFactory mf) {
+    public Runnable handleResponse(Message m, Socket s, HashMap<String, Search> searchList, MessageFactory mf) {
         return () -> {
             Response r = (Response) m;
 
@@ -179,6 +192,17 @@ public class ThreadFunctions {
             Search search = searchList.get(Arrays.toString(r.getID()));
             if (search == null) {
                 logger.log(Level.INFO, "Received response with no matching search: " + r);
+                for (Peer p : peerList) {
+                    if (!p.getSocket().equals(s)) {
+                        synchronized (p.getOut()) {
+                            try {
+                                r.encode(p.getOut());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
                 return;
             }
             logger.log(Level.INFO, "Received response message " + r);

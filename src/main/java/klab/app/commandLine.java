@@ -2,6 +2,7 @@ package klab.app;
 
 import klab.serialization.MessageOutput;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -9,6 +10,11 @@ import java.util.Scanner;
 import static klab.app.Node.logger;
 
 public class commandLine implements Runnable {
+    private final File directory;
+
+    public commandLine(File directory) {
+        this.directory = directory;
+    }
 
     @Override
     public void run() {
@@ -24,7 +30,13 @@ public class commandLine implements Runnable {
                     System.exit(0);
                     break;
                 case "connect":
-                    Node.ch.connectToPeer(user, Node.directory);
+                    logger.info("Connecting with directory " + this.directory);
+                    String[] args = user.nextLine().split(" ");
+                    if (args.length != 3) {
+                        System.err.println("Bad Connect command: Expect connect <ip> <port>");
+                    } else {
+                        Node.ch.connectToPeer(args, this.directory);
+                    }
                     break;
                 case "download":
                     //TODO: Implement download
@@ -35,7 +47,7 @@ public class commandLine implements Runnable {
                                 logger.info("Searching peer: " + p.getSocket().getInetAddress() + ":" + p.getSocket().getPort() + " to search for " + command);
                                 Node.pool.submit(Node.tf.handleOutSearch(command, p.getSocket(),
                                         new MessageOutput(p.getSocket().getOutputStream()),
-                                        Node.mf, Node.searchList));
+                                        Node.getMf(), Node.searchList));
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }

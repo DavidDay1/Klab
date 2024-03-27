@@ -15,7 +15,15 @@ public class MessageFactory {
     /**
      * Message ID
      */
-    public byte[] msgID = new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private byte[] msgID = new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+    private MessageFactory(){
+        setMsgID();
+    }
+
+    public static synchronized MessageFactory getInstance(){
+        return new MessageFactory();
+    }
 
     /**
      * Set the message ID to a random value

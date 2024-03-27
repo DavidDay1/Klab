@@ -15,14 +15,10 @@ import static klab.app.Node.*;
 
 public class connectionHandler {
 
-    public void connectToPeer(Scanner user, File directory) {
+    public void connectToPeer(String[] args, File directory) {
         try {
-            if (!user.hasNext()) {
-                System.err.println("usage connect <ip> <port>");
-                return;
-            }
-            String peerIp = user.next();
-            int peerPort = Integer.parseInt(user.next());
+            String peerIp = args[1];
+            int peerPort = Integer.parseInt(args[2]);
 
             Socket s = new Socket(peerIp, peerPort);
             establishConnection(s, directory);
@@ -51,7 +47,7 @@ public class connectionHandler {
         pool.submit(tf.handleIn(new MessageInput(s.getInputStream()),
                 new MessageOutput(s.getOutputStream()), s, directory, Node.searchList,
                 new InetSocketAddress(s.getInetAddress(), s.getPort())));
-        System.out.println("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
+        logger.info("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
                 "Size: " + peerList.size());
     }
 }

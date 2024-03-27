@@ -44,7 +44,11 @@ public class Node {
     /**
      * Message factory for generating messages
      */
-    public static MessageFactory mf = new MessageFactory();
+    private static MessageFactory mf = MessageFactory.getInstance();
+
+    public static MessageFactory getMf() {
+        return mf;
+    }
 
 
     /**
@@ -57,7 +61,7 @@ public class Node {
     /**
      * Directory for the node
      */
-    public static File directory;
+
 
     protected static connectionHandler ch = new connectionHandler();
 
@@ -72,7 +76,7 @@ public class Node {
             System.err.println("Usage: <local Node port> <local document directory> <local download port>");
             System.exit(1);
         }
-        directory = new File(args[1]);
+        File directory = new File(args[1]);
         if (!directory.exists()) {
             System.err.println("Directory provided does not exist");
         }
@@ -86,13 +90,12 @@ public class Node {
 
             ServerSocket downloadSocket = new ServerSocket(downloadPort);
 
-            mf.setMsgID();
 
 
-            commandLine commandLine = new commandLine();
+            commandLine commandLine = new commandLine(directory);
             pool.submit(commandLine);
 
-            pool.submit(ch.listenForConnections(nodeSocket, Node.directory));
+            pool.submit(ch.listenForConnections(nodeSocket, directory));
 
 
         } catch (IOException e) {
