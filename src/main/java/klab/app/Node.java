@@ -41,6 +41,9 @@ public class Node {
     protected static final ExecutorService pool = Executors.newCachedThreadPool();
 
 
+    protected static final DownloadService DS = new DownloadService();
+
+
     /**
      * Message factory for generating messages
      */

@@ -73,6 +73,7 @@ public class ThreadFunctions {
                     synchronized (in) {
                         m = Message.decode(in);
                     }
+                    m.setTTL(m.getTTL() - 1);
 
                     if (m.getTTL() < 1) {
                         logger.info("Message TTL expired: " + m);
@@ -126,12 +127,12 @@ public class ThreadFunctions {
                 for (Peer p : peerList) {
                     if (!p.getSocket().equals(s)) {
                         logger.info("Forwarding search: " + search + " to " + p.getSocket().getRemoteSocketAddress());
-                        pool.submit(handleOutSearch(search.getSearchString(), p.getSocket(), p.getOut(), mf, searchList));
+                        m.encode(p.getOut());
                     }
                 }
 
                 //creating a response
-                Response response = new Response(m.getID(), m.getTTL() - 1, m.getRoutingService(), responseHost);
+                Response response = new Response(m.getID(), m.getTTL(), m.getRoutingService(), responseHost);
                 logger.info("Created response: " + response + " to " + s.getRemoteSocketAddress() + " for search: " +
                         search.getSearchString());
 

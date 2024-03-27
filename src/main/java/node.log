@@ -1,60 +1,86 @@
-Mar 27, 2024 3:59:37 PM klab.app.ThreadFunctions lambda$handleIn$1
+Mar 27, 2024 4:22:49 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Mar 27, 2024 3:59:37 PM klab.app.connectionHandler establishConnection
-INFO: Connected to peer: /192.168.56.1:59547 Peer List Size: 1
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Received message: Search: ID=90826A72735DC0FE1ED63DA9852E13 TTL=10 Routing=DEPTHFIRST Search=hog
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Processing searchSearch: ID=90826A72735DC0FE1ED63DA9852E13 TTL=10 Routing=DEPTHFIRST Search=hog
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleIn$1
+Mar 27, 2024 4:22:49 PM klab.app.connectionHandler establishConnection
+INFO: Connected to peer: /192.168.56.1:59727 Peer List Size: 1
+Mar 27, 2024 4:22:59 PM klab.app.connectionHandler establishConnection
+INFO: Connected to peer: /192.168.56.1:59729 Peer List Size: 2
+Mar 27, 2024 4:22:59 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Received search: Search: ID=90826A72735DC0FE1ED63DA9852E13 TTL=10 Routing=DEPTHFIRST Search=hog
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Created response: Response: ID=90826A72735DC0FE1ED63DA9852E13 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59547 [] to /192.168.56.1:59547 for search: hog
-Mar 27, 2024 3:59:39 PM klab.app.FileSearch search
-INFO: Searching for: hog
-Mar 27, 2024 3:59:39 PM klab.app.FileSearch search
-INFO: In directory: root
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Searching for files with search string: hog
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Sending response: Response: ID=90826A72735DC0FE1ED63DA9852E13 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59547 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog] to /192.168.56.1:59547 for search: hog
-Mar 27, 2024 3:59:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Sending response: Response: ID=90826A72735DC0FE1ED63DA9852E13 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59547 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog] to /192.168.56.1:59547 for search: hog
-Mar 27, 2024 4:00:28 PM klab.app.connectionHandler establishConnection
-INFO: Connected to peer: /192.168.56.1:59550 Peer List Size: 2
-Mar 27, 2024 4:00:28 PM klab.app.ThreadFunctions lambda$handleIn$1
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=9 Routing=DEPTHFIRST Search=bob
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing searchSearch: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=9 Routing=DEPTHFIRST Search=bob
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Received message: Search: ID=90826A72735DC0FE1ED63DA9852E14 TTL=10 Routing=DEPTHFIRST Search=bob
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Processing searchSearch: ID=90826A72735DC0FE1ED63DA9852E14 TTL=10 Routing=DEPTHFIRST Search=bob
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Waiting for message
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Received search: Search: ID=90826A72735DC0FE1ED63DA9852E14 TTL=10 Routing=DEPTHFIRST Search=bob
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Forwarding search: Search: ID=90826A72735DC0FE1ED63DA9852E14 TTL=10 Routing=DEPTHFIRST Search=bob to /192.168.56.1:59550
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleOutSearch$0
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Received search: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=9 Routing=DEPTHFIRST Search=bob
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Forwarding search: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=9 Routing=DEPTHFIRST Search=bob to /192.168.56.1:59727
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Created response: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59729 [] to /192.168.56.1:59729 for search: bob
+Mar 27, 2024 4:23:04 PM klab.app.FileSearch search
 INFO: Searching for: bob
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Created response: Response: ID=90826A72735DC0FE1ED63DA9852E14 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59547 [] to /192.168.56.1:59547 for search: bob
-Mar 27, 2024 4:00:39 PM klab.app.FileSearch search
-INFO: Searching for: bob
-Mar 27, 2024 4:00:39 PM klab.app.FileSearch search
+Mar 27, 2024 4:23:04 PM klab.app.FileSearch search
 INFO: In directory: root
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleSearch$2
 INFO: Searching for files with search string: bob
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleSearch$2
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleSearch$2
 INFO: No files found for Search: bob
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Received message: Response: ID=239A991ADEA94038F05724DB77AA89 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Processing responseResponse: ID=239A991ADEA94038F05724DB77AA89 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleIn$1
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=7 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing responseResponse: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=7 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleResponse$3
-INFO: Received response message Response: ID=239A991ADEA94038F05724DB77AA89 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
-Mar 27, 2024 4:00:39 PM klab.app.ThreadFunctions lambda$handleResponse$3
-INFO: Received response for search: bob from /192.168.56.1:4001
+Mar 27, 2024 4:23:04 PM klab.app.ThreadFunctions lambda$handleResponse$3
+INFO: Received response with no matching search: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED51 TTL=7 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED52 TTL=9 Routing=DEPTHFIRST Search=klajdglkdajfg
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing searchSearch: ID=D64D2A21B2AA1CD632F4EEBB2CED52 TTL=9 Routing=DEPTHFIRST Search=klajdglkdajfg
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Waiting for message
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Received search: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED52 TTL=9 Routing=DEPTHFIRST Search=klajdglkdajfg
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Forwarding search: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED52 TTL=9 Routing=DEPTHFIRST Search=klajdglkdajfg to /192.168.56.1:59727
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Created response: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED52 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59729 [] to /192.168.56.1:59729 for search: klajdglkdajfg
+Mar 27, 2024 4:24:54 PM klab.app.FileSearch search
+INFO: Searching for: klajdglkdajfg
+Mar 27, 2024 4:24:54 PM klab.app.FileSearch search
+INFO: In directory: root
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Searching for files with search string: klajdglkdajfg
+Mar 27, 2024 4:24:54 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: No files found for Search: klajdglkdajfg
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Search=hog
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing searchSearch: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Search=hog
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Waiting for message
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Received search: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Search=hog
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Forwarding search: Search: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Search=hog to /192.168.56.1:59727
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Created response: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59729 [] to /192.168.56.1:59729 for search: hog
+Mar 27, 2024 4:25:01 PM klab.app.FileSearch search
+INFO: Searching for: hog
+Mar 27, 2024 4:25:01 PM klab.app.FileSearch search
+INFO: In directory: root
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Searching for files with search string: hog
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Sending response: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59729 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog] to /192.168.56.1:59729 for search: hog
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Sending response: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=9 Routing=DEPTHFIRST Host=192.168.56.1:59729 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog] to /192.168.56.1:59729 for search: hog
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=7 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=CA42CA7B FileSize=0 bytes FileName=hog.txt]
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing responseResponse: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=7 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=CA42CA7B FileSize=0 bytes FileName=hog.txt]
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Waiting for message
+Mar 27, 2024 4:25:01 PM klab.app.ThreadFunctions lambda$handleResponse$3
+INFO: Received response with no matching search: Response: ID=D64D2A21B2AA1CD632F4EEBB2CED53 TTL=7 Routing=DEPTHFIRST Host=192.168.56.1:4001 [Result: FileID=CA42CA7B FileSize=0 bytes FileName=hog.txt]

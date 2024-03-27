@@ -39,7 +39,13 @@ public class commandLine implements Runnable {
                     }
                     break;
                 case "download":
-                    //TODO: Implement download
+                    logger.info("Downloading file");
+                    String[] downloadArgs = user.nextLine().split(" ");
+                    if (downloadArgs.length != 5) {
+                        System.err.println("Bad Download command: Expect download <download node> <download port> <file ID> <file name>");
+                    } else {
+                        Node.ch.connectToPeer(downloadArgs, this.directory);
+                    }
                     break;
                 default:
                     for (Peer p : Node.peerList) {

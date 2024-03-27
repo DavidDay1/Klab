@@ -40,6 +40,7 @@ public class connectionHandler {
         };
     }
 
+
     public void establishConnection(Socket s, File directory) throws IOException {
         synchronized (peerList) {
             peerList.add(new Peer(s));
@@ -50,4 +51,34 @@ public class connectionHandler {
         logger.info("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
                 "Size: " + peerList.size());
     }
+
+    public Runnable listenForDownload(ServerSocket downloadSocket, File directory) {
+        return () -> {
+            while (!downloadSocket.isClosed()) {
+                try {
+                    Socket s = downloadSocket.accept();
+                    establishConnection(s, directory);
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+                }
+            }
+        };
+    }
+
+    public void downloadFile(String[] args, File directory) {
+        try {
+            String peerIp = args[1];
+            int peerPort = Integer.parseInt(args[2]);
+            String fileID = args[3];
+            String fileName = args[4];
+
+            Socket s = new Socket(peerIp, peerPort);
+            MessageOutput out = new MessageOutput(s.getOutputStream());
+            out.writeString(fileID);
+            out.write('\n');
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+        }
+    }
+
 }
