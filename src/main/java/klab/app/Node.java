@@ -5,6 +5,7 @@ import klab.serialization.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -17,11 +18,21 @@ import java.util.logging.*;
  */
 
 public class Node {
+    public ServerSocket nodeSocket;
+
+    public ServerSocket downloadSocket;
+
 
     /**
      * List of searches
      */
     protected static HashMap<String, Search> searchList = new HashMap<String, Search>();
+
+    /**
+     * List of peers
+     */
+
+    protected static List<Peer> peerList = new ArrayList<Peer>();
 
     /**
      * Thread pool for handling threads
@@ -36,12 +47,12 @@ public class Node {
     /**
      * Message factory for generating messages
      */
-    protected static MessageFactory mf = new MessageFactory();
+    public static MessageFactory mf = new MessageFactory();
 
     /**
      * Thread functions for handling threads
      */
-    private static ThreadFunctions tf = new ThreadFunctions();
+    public static ThreadFunctions tf = new ThreadFunctions();
 
 
     static {
@@ -69,6 +80,41 @@ public class Node {
         }
     }
 
+    /**
+     * Establish Peer Connection
+     */
+
+    public static void connectToPeer(Scanner user) {
+        while (true) {
+            try {
+                String peerIp = user.next();
+                int peerPort = Integer.parseInt(user.next());
+
+                Socket s = new Socket(peerIp, peerPort);
+                peerList.add(new Peer(s));
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+            }
+        }
+    }
+
+    public static void listenForConnections(ServerSocket nodeSocket, File directory,
+                                            HashMap<String, Search> searchList) {
+        while (true) {
+            try {
+                Socket s = nodeSocket.accept();
+                peerList.add(new Peer(s));
+                pool.submit(() -> tf.handleIn(new MessageInput(s.getInputStream()),
+                        new MessageOutput(s.getOutputStream()), s, directory, searchList,
+                        new InetSocketAddress(s.getInetAddress(), s.getPort())));
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+            }
+        }
+    }
+
+
+
 
     /**
      * Main method for Node
@@ -77,41 +123,38 @@ public class Node {
      */
     public static void main(String[] args) throws IOException {
         if (args.length != 3) {
-            System.err.println("Usage: <doc> [<neighbor ip/name> <neighbor port>");
+            System.err.println("Usage: <local Node port> <local document directory> <local download port>");
             System.exit(1);
         }
-        File directory = new File(args[0]);
+        File directory = new File(args[1]);
         if (!directory.exists()) {
             System.err.println("Directory provided does not exist");
         }
 
-        String neighbor = args[1];
-        int port = Integer.parseInt(args[2]);
+        int nodePort = Integer.parseInt(args[0]);
+        int downloadPort = Integer.parseInt(args[2]);
+
 
         try {
-            //try to connect to neighbor
-            Socket s = new Socket(neighbor, port);
+            Node node = new Node();
+            ServerSocket nodeSocket = new ServerSocket(nodePort);
 
-            //initialize node's local address and ports
-            InetSocketAddress responseHost = new InetSocketAddress(s.getLocalAddress(), s.getLocalPort());
+            ServerSocket downloadSocket = new ServerSocket(downloadPort);
 
-            //initialize input and output streams
-            MessageInput in = new MessageInput(s.getInputStream());
-            MessageOutput out = new MessageOutput(s.getOutputStream());
+            commandLine commandLine = new commandLine();
+            pool.submit(() -> commandLine.run());
 
-            mf.setMsgID();
+            pool.submit(() -> listenForConnections(nodeSocket, directory, searchList));
 
-            logger.info("Connected to neighbor at: " + neighbor + ":" + port);
-            Scanner user = new Scanner(System.in);
 
-            pool.submit(tf.handleOutSearch(user, s, out, mf, searchList));
-            pool.submit(tf.handleIn(in, out, s, directory, searchList, responseHost));
+
+
 
 
 
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Unable to communicate: " + args[1] + ":" + args[2]);
+            logger.log(Level.SEVERE, "Unable to establish ports: " + args[0] + ":" + args[2]);
             System.exit(1);
         }
 

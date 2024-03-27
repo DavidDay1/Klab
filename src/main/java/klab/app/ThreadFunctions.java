@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -35,23 +34,13 @@ public class ThreadFunctions {
      * @return runnable
      */
 
-    public Runnable handleOutSearch(Scanner user, Socket s, MessageOutput out, MessageFactory mf, HashMap<String,
+    public Runnable handleOutSearch(String command, Socket s, MessageOutput out, MessageFactory mf, HashMap<String,
             Search> searchList) {
         return () -> {
             while (s.isConnected()) {
                 try {
-                    System.out.print("> ");
-                    String search = user.nextLine();
-                    if (search.equals("exit")) {
-                        logger.info("Disconnecting from neighbor");
-                        user.close();
-                        s.close();
-                        pool.shutdownNow();
-                        System.exit(0);
-                        break;
-                    }
-                    logger.info("Sent search: " + search);
-                    Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(), mf.generateRoutingService(), search);
+                    Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(),
+                            mf.generateRoutingService(), command);
                     searchMessage.encode(out);
                     searchList.put(Arrays.toString(searchMessage.getID()), searchMessage);
                 } catch (BadAttributeValueException e) {
