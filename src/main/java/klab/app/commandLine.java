@@ -3,6 +3,7 @@ package klab.app;
 import klab.serialization.MessageOutput;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import static klab.app.Node.logger;
@@ -17,26 +18,22 @@ public class commandLine implements Runnable {
             String command = user.next();
             switch (command) {
                 case "exit":
-                    System.out.println("Command should be exit was: " + command);
-                    //logger.info("Exiting from command line...");
                     for (Peer p : Node.peerList) {
                         p.close();
                     }
                     System.exit(0);
                     break;
                 case "connect":
-                    System.out.println("Command should be connect was: " + command);
-                    //logger.info("Connecting to peer...");
-                    Node.connectToPeer(user);
+                    Node.ch.connectToPeer(user, Node.directory);
+                    break;
                 case "download":
                     //TODO: Implement download
+                    break;
                 default:
-                    System.out.println("Command should be search was: " + command);
-                    if (Node.peerList.isEmpty()) {
-                        System.out.println("No peers to search");
-                    } else {
-                        for (Peer p : Node.peerList) {
+                    System.out.println(Node.peerList.size());
+                    for (Peer p : Node.peerList) {
                             try {
+                                System.out.println("Searching peer: " + p.getSocket().getInetAddress() + ":" + p.getSocket().getPort() + "to search for " + command);
                                 Node.pool.submit(Node.tf.handleOutSearch(command, p.getSocket(),
                                         new MessageOutput(p.getSocket().getOutputStream()),
                                         Node.mf, Node.searchList));
@@ -44,7 +41,7 @@ public class commandLine implements Runnable {
                                 throw new RuntimeException(e);
                             }
                         }
-                    }
+                    break;
             }
 
         }

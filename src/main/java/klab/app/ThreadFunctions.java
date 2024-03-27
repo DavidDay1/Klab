@@ -26,7 +26,7 @@ public class ThreadFunctions {
     /**
      * Handle the out search
      *
-     * @param user       user input
+     * @param command    search value
      * @param s          socket
      * @param out        message output
      * @param mf         message factory
@@ -41,7 +41,9 @@ public class ThreadFunctions {
                 try {
                     Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(),
                             mf.generateRoutingService(), command);
-                    searchMessage.encode(out);
+                    synchronized (out) {
+                        searchMessage.encode(out);
+                    }
                     searchList.put(Arrays.toString(searchMessage.getID()), searchMessage);
                 } catch (BadAttributeValueException e) {
                     logger.log(Level.WARNING, "Invalid message: " + e.getMessage());
@@ -70,6 +72,7 @@ public class ThreadFunctions {
             Message m;
             while (s.isConnected()) {
                 try {
+                    System.out.print("> ");
                     synchronized (in) {
                         m = Message.decode(in);
                     }

@@ -1,19 +1,20 @@
 package klab.app;
 
-import klab.serialization.*;
+import klab.serialization.Search;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.*;
 
 /**
  * Node class for the KLab network
+ *
  * @version 1.0
  */
 
@@ -39,10 +40,6 @@ public class Node {
      */
     protected static final ExecutorService pool = Executors.newCachedThreadPool();
 
-    /**
-     * Logger for Node
-     */
-    protected static final Logger logger = Logger.getLogger("klab.app.Node");
 
     /**
      * Message factory for generating messages
@@ -54,70 +51,18 @@ public class Node {
      */
     public static ThreadFunctions tf = new ThreadFunctions();
 
-
-    static {
-        try {
-            logger.setUseParentHandlers(false);
-            for (Handler h : logger.getHandlers()) {
-                logger.removeHandler(h);
-            }
-
-
-            Handler h = new FileHandler("node.log");
-            h.setFormatter(new SimpleFormatter());
-            h.setLevel(Level.ALL);
-
-            Handler ch = new ConsoleHandler();
-            ch.setFormatter(new SimpleFormatter());
-            ch.setLevel(Level.WARNING);
-
-
-            logger.addHandler(h);
-            logger.addHandler(ch);
-        } catch (SecurityException | IOException e) {
-            System.err.println("Unable to create file handler");
-            System.exit(1);
-        }
-    }
+    public static final Logger logger = logHandler.getLogger();
 
     /**
-     * Establish Peer Connection
+     * Directory for the node
      */
+    public static File directory;
 
-    public static void connectToPeer(Scanner user) {
-        while (true) {
-            try {
-                String peerIp = user.next();
-                int peerPort = Integer.parseInt(user.next());
-
-                Socket s = new Socket(peerIp, peerPort);
-                peerList.add(new Peer(s));
-            } catch (IOException e) {
-                logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
-            }
-        }
-    }
-
-    public static void listenForConnections(ServerSocket nodeSocket, File directory,
-                                            HashMap<String, Search> searchList) {
-        while (true) {
-            try {
-                Socket s = nodeSocket.accept();
-                peerList.add(new Peer(s));
-                pool.submit(() -> tf.handleIn(new MessageInput(s.getInputStream()),
-                        new MessageOutput(s.getOutputStream()), s, directory, searchList,
-                        new InetSocketAddress(s.getInetAddress(), s.getPort())));
-            } catch (IOException e) {
-                logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
-            }
-        }
-    }
-
-
-
+    protected static connectionHandler ch = new connectionHandler();
 
     /**
      * Main method for Node
+     *
      * @param args command line arguments
      * @throws IOException if I/O problem
      */
@@ -126,7 +71,7 @@ public class Node {
             System.err.println("Usage: <local Node port> <local document directory> <local download port>");
             System.exit(1);
         }
-        File directory = new File(args[1]);
+        directory = new File(args[1]);
         if (!directory.exists()) {
             System.err.println("Directory provided does not exist");
         }
@@ -136,21 +81,17 @@ public class Node {
 
 
         try {
-            Node node = new Node();
             ServerSocket nodeSocket = new ServerSocket(nodePort);
 
             ServerSocket downloadSocket = new ServerSocket(downloadPort);
 
+            mf.setMsgID();
+
+
             commandLine commandLine = new commandLine();
-            pool.submit(() -> commandLine.run());
+            pool.submit(commandLine);
 
-            pool.submit(() -> listenForConnections(nodeSocket, directory, searchList));
-
-
-
-
-
-
+            pool.submit(ch.listenForConnections(nodeSocket, directory));
 
 
         } catch (IOException e) {
