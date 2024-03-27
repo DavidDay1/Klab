@@ -24,7 +24,7 @@ public class commandLine implements Runnable {
                     System.exit(0);
                     break;
                 case "connect":
-                    Node.ch.connectToPeer(user, Node.directory);
+                    Node.ch.connectToPeer(user);
                     break;
                 case "download":
                     //TODO: Implement download

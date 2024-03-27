@@ -15,7 +15,7 @@ import static klab.app.Node.*;
 
 public class connectionHandler {
 
-    public void connectToPeer(Scanner user, File directory) {
+    public void connectToPeer(Scanner user) {
         try {
             if (!user.hasNext()) {
                 System.err.println("usage connect <ip> <port>");
@@ -25,18 +25,18 @@ public class connectionHandler {
             int peerPort = Integer.parseInt(user.next());
 
             Socket s = new Socket(peerIp, peerPort);
-            establishConnection(s, directory);
+            establishConnection(s);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
         }
     }
 
-    public Runnable listenForConnections(ServerSocket nodeSocket, File directory) {
+    public Runnable listenForConnections(ServerSocket nodeSocket) {
         return () -> {
             while (!nodeSocket.isClosed()) {
                 try {
                     Socket s = nodeSocket.accept();
-                    establishConnection(s, directory);
+                    establishConnection(s);
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
                 }
@@ -44,12 +44,12 @@ public class connectionHandler {
         };
     }
 
-    public void establishConnection(Socket s, File directory) throws IOException {
+    public void establishConnection(Socket s) throws IOException {
         synchronized (peerList) {
             peerList.add(new Peer(s));
         }
         pool.submit(tf.handleIn(new MessageInput(s.getInputStream()),
-                new MessageOutput(s.getOutputStream()), s, directory, Node.searchList,
+                new MessageOutput(s.getOutputStream()), s, searchList,
                 new InetSocketAddress(s.getInetAddress(), s.getPort())));
         System.out.println("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
                 "Size: " + peerList.size());

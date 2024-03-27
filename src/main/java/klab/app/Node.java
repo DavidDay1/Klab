@@ -46,20 +46,30 @@ public class Node {
      */
     public static MessageFactory mf = new MessageFactory();
 
+    public static FileSearch fs;
 
     /**
      * Thread functions for handling threads
      */
-    public static ThreadFunctions tf = new ThreadFunctions();
+    public static final ThreadFunctions tf = new ThreadFunctions();
 
     public static final Logger logger = logHandler.getLogger();
+
 
     /**
      * Directory for the node
      */
-    public static File directory;
+    private static DirectoryManager dm;
 
-    protected static connectionHandler ch = new connectionHandler();
+    protected static final connectionHandler ch = new connectionHandler();
+
+
+    public static DirectoryManager getDm() {
+        if(dm == null) {
+            dm = new DirectoryManager();
+        }
+        return dm;
+    }
 
     /**
      * Main method for Node
@@ -68,20 +78,21 @@ public class Node {
      * @throws IOException if I/O problem
      */
     public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
-            System.err.println("Usage: <local Node port> <local document directory> <local download port>");
-            System.exit(1);
-        }
-        directory = new File(args[1]);
-        if (!directory.exists()) {
-            System.err.println("Directory provided does not exist");
-        }
-
-        int nodePort = Integer.parseInt(args[0]);
-        int downloadPort = Integer.parseInt(args[2]);
-
-
         try {
+            if (args.length != 3) {
+                System.err.println("Usage: <local Node port> <local document directory> <local download port>");
+                System.exit(1);
+            }
+            fs = new FileSearch(new File(args[1]));
+            if (!fs.getDirectory().exists()) {
+                System.err.println("Directory provided does not exist");
+            }
+
+            System.out.println(fs.getDirectory());
+            int nodePort = Integer.parseInt(args[0]);
+            int downloadPort = Integer.parseInt(args[2]);
+
+
             ServerSocket nodeSocket = new ServerSocket(nodePort);
 
             ServerSocket downloadSocket = new ServerSocket(downloadPort);
@@ -92,7 +103,7 @@ public class Node {
             commandLine commandLine = new commandLine();
             pool.submit(commandLine);
 
-            pool.submit(ch.listenForConnections(nodeSocket, Node.directory));
+            pool.submit(ch.listenForConnections(nodeSocket));
 
 
         } catch (IOException e) {

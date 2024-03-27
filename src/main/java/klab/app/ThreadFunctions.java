@@ -13,6 +13,7 @@ import java.util.logging.Level;
 
 import static klab.app.Node.*;
 
+
 /**
  * Class for handling threads
  *
@@ -37,7 +38,7 @@ public class ThreadFunctions {
         return () -> {
                 try {
                     logger.info("Searching for: " + command);
-                    Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(),
+                    Search searchMessage = new Search(Node.mf.generateMsgID(), mf.generateTTL(),
                             mf.generateRoutingService(), command);
                     synchronized (out) {
                         searchMessage.encode(out);
@@ -57,13 +58,12 @@ public class ThreadFunctions {
      * @param in           message input
      * @param out          message output
      * @param s            socket
-     * @param directory    directory
      * @param searchList   list of searches
      * @param responseHost response host
      * @return runnable
      */
 
-    public Runnable handleIn(MessageInput in, MessageOutput out, Socket s, File directory,
+    public Runnable handleIn(MessageInput in, MessageOutput out, Socket s,
                              HashMap<String, Search> searchList, InetSocketAddress responseHost) {
         return () -> {
             Message m;
@@ -76,10 +76,10 @@ public class ThreadFunctions {
                     logger.info("Received message: " + m);
                     if (m instanceof Response) {
                         logger.info("Processing response" + m);
-                        pool.submit(new ThreadFunctions().handleResponse(m, searchList, mf));
+                        pool.submit(new ThreadFunctions().handleResponse(m, searchList));
                     } else if (m instanceof Search) {
-                        logger.info("Processing search" + m);
-                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost, mf));
+                        logger.info("Processing search" + m + " looking in directory: " + Node.getDm().getDir());
+                        pool.submit(new ThreadFunctions().handleSearch(m, out, s, responseHost));
 
                     }
                 } catch (IOException e) {
@@ -105,13 +105,12 @@ public class ThreadFunctions {
      * @param m            message
      * @param out          message output
      * @param s            socket
-     * @param directory    directory
      * @param responseHost response host
      * @return runnable
      */
 
-    public Runnable handleSearch(Message m, MessageOutput out, Socket s, File directory,
-                                 InetSocketAddress responseHost, MessageFactory mf) {
+    public Runnable handleSearch(Message m, MessageOutput out, Socket s,
+                                 InetSocketAddress responseHost) {
         return () -> {
             try {
                 //confirming message type
@@ -131,13 +130,14 @@ public class ThreadFunctions {
                     }
                 } else {
                     //check files with matching search string
-                    List<File> results = FileSearch.search(directory, search.getSearchString());
+                    logger.info("Searching for files with search string: " + search.getSearchString() + " in " + Node.getDm().getDir());
+                    List<File> results = FileSearch.search(search.getSearchString(), fs.getDirectory());
                     logger.info("Searching for files with search string: " + search.getSearchString());
 
                     if (!results.isEmpty()) {
                         //if there are files that exist with matching search string
                         //send response with results
-                        mf.generateResults(response, results);
+                        MessageFactory.generateResults(response, results);
                         logger.info("Sending response: " + response + " to " + s.getRemoteSocketAddress() + " for search:" +
                                 " " + search.getSearchString());
                         synchronized (out) {
@@ -171,7 +171,7 @@ public class ThreadFunctions {
      */
 
 
-    public Runnable handleResponse(Message m, HashMap<String, Search> searchList, MessageFactory mf) {
+    public Runnable handleResponse(Message m, HashMap<String, Search> searchList) {
         return () -> {
             Response r = (Response) m;
 
@@ -183,7 +183,7 @@ public class ThreadFunctions {
             }
             logger.log(Level.INFO, "Received response message " + r);
             logger.log(Level.INFO, "Received response for search: " + search.getSearchString() + " from " + r.getResponseHost());
-            System.out.print(mf.printMessage(search, r));
+            System.out.print(MessageFactory.printMessage(search, r));
         };
     }
 }

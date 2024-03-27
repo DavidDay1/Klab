@@ -16,15 +16,22 @@ import static klab.app.Node.logger;
 
 public class FileSearch implements FilenameFilter {
 
-    String name;
+    private File directory;
+    private String name;
 
     /**
      * Constructor for FileSearch
      * @param name name of file to search for
      */
 
-    public FileSearch(String name) {
+    public FileSearch(File directory) {
+
+        this.directory = directory;
+    }
+
+    public FileSearch(String name, File directory) {
         this.name = name;
+        this.directory = directory;
     }
 
     /**
@@ -43,21 +50,24 @@ public class FileSearch implements FilenameFilter {
 
     /**
      * Method for searching files
-     * @param dir directory to search
      * @param name name of file to search for
      * @return list of files found
      */
 
-    public static List<File> search(File dir, String name) {
+    public static List<File> search(String name, File directory) {
         logger.info("Searching for: " + name);
-        logger.info("In directory: " + dir.getName());
-        FileSearch filter = new FileSearch(name);
-        List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles(filter)));
+        System.out.println("In directory: " + directory);
+        FileSearch filter = new FileSearch(name, directory);
+        List<File> files = Arrays.asList(Objects.requireNonNull(directory.listFiles(filter)));
 
         files = files.stream()
                 .sorted(Comparator.comparingLong(File::length))
                 .toList();
 
         return files;
+    }
+
+    public File getDirectory() {
+        return directory;
     }
 }
