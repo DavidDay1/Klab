@@ -111,9 +111,19 @@ public class MessageFactory {
         }
     }
 
+    /**
+     * Generate a file ID
+     * @param f file
+     * @return file ID
+     */
     public static byte[] generateFileID(File f) {
         return ByteBuffer.allocate(4).putInt(f.hashCode()).array();
     }
+
+    /**
+     * Convert a byte array to a hex string
+     * @return hex string
+     */
 
     public static byte[] hexStringToByteArray(String s) {
         return new BigInteger(s, 16).toByteArray();

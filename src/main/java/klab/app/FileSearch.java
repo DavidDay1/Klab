@@ -44,6 +44,13 @@ public class FileSearch {
         return name.contains(this.name);
     }
 
+    /**
+     * Method for accepting files by ID
+     * @param dir directory to search
+     * @param id id of file to search for
+     * @return true if file is found, false otherwise
+     */
+
     public boolean acceptByID(File dir, String id) {
         if (fileID.equals("")){
             return false;
@@ -66,6 +73,12 @@ public class FileSearch {
         return search(dir, filter::acceptByName);
     }
 
+    /**
+     * Method for searching files by ID
+     * @param dir directory to search
+     * @param fileID id of file to search for
+     * @return file found
+     */
     public static File searchByID(File dir, String fileID) {
         logger.info("Searching for: " + fileID);
         logger.info("In directory: " + dir.getName());
@@ -77,6 +90,13 @@ public class FileSearch {
         return file[0];
     }
 
+
+    /**
+     * Method for searching files
+     * @param dir directory to search
+     * @param filter filter to use
+     * @return list of files found
+     */
     private static List<File> search(File dir, FilenameFilter filter) {
         List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles(filter)));
 

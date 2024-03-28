@@ -9,6 +9,10 @@ import java.util.Scanner;
 
 import static klab.app.Node.logger;
 
+/**
+ * Command line class for the KLab network
+ * @version 1.0
+ */
 public class commandLine implements Runnable {
     private final File directory;
 
@@ -16,6 +20,9 @@ public class commandLine implements Runnable {
         this.directory = directory;
     }
 
+    /**
+     * Run the command line
+     */
     @Override
     public void run() {
         Scanner user = new Scanner(System.in);

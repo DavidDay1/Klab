@@ -17,11 +17,21 @@ import java.util.concurrent.Executors;
 
 import static klab.app.Node.logger;
 
+/**
+ * Class for downloading files
+ * @version 1.0
+ */
+
 public class DownloadService {
     private Executor executor = Executors.newFixedThreadPool(4);
 
     private HashMap<String, String> fileIDToNameList = new HashMap<String, String>();
 
+
+/**
+     * Set the file ID to name list
+     * @param directory directory
+     */
     public void setFileIDToNameList(File directory) {
 
         for (File f : directory.listFiles()) {
@@ -35,15 +45,34 @@ public class DownloadService {
         }
     }
 
+
+/**
+     * Get the file ID to name list
+     * @return the file ID to name list
+     */
     public HashMap<String, String> getFileIDToNameList() {
         return fileIDToNameList;
     }
 
+
+/**
+     * Get the executor
+     * @return the executor
+     */
     public Executor getExecutor() {
         return executor;
     }
 
 
+
+/**
+     * Download a file
+     * @param out message output
+     * @param in message input
+     * @param args arguments
+     * @param s socket
+     * @return runnable
+     */
     public Runnable download(MessageOutput out, MessageInput in, String[] args, Socket s) {
         return () -> {
             try {
@@ -62,6 +91,7 @@ public class DownloadService {
                     logger.info("Downloading file: inside download OK");
                     //get rid of /n's
                     in.read();
+                    in.read();
                     while ((i = in.read()) != -1) {
                         fos.write(i);
                     }
@@ -79,6 +109,15 @@ public class DownloadService {
         };
     }
 
+/**
+     * Upload a file
+     * @param out message output
+     * @param fileID file ID
+     * @param s socket
+     * @param directory directory
+     * @return runnable
+     */
+
     public Runnable upload(MessageOutput out, String fileID, Socket s, File directory) {
         return () -> {
             try {
@@ -91,7 +130,7 @@ public class DownloadService {
                 if (filename != null) {
                     List<File> downloadSearch = FileSearch.searchByName(directory, filename);
                     logger.info("uploading file: " + downloadSearch.get(0));
-                    out.writeString("OK\n");
+                    out.writeString("OK\n\n");
                     FileInputStream fis = new FileInputStream(downloadSearch.get(0));
                     int j;
                     while ((j = fis.read()) != -1) {
@@ -101,7 +140,7 @@ public class DownloadService {
                     fis.close();
                     s.close();
                 } else {
-                    out.writeString("ERROR\n");
+                    out.writeString("ERROR\n\n");
                     out.writeString("Bad File ID: " + fileID + "\n");
                     s.close();
                 }

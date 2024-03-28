@@ -3,6 +3,10 @@ package klab.app;
 import java.io.IOException;
 import java.util.logging.*;
 
+/**
+ * Class for handling logs
+ * @version 1.0
+ */
 public class logHandler {
     protected static final Logger logger = Logger.getLogger("klab.app");
 

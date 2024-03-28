@@ -40,6 +40,9 @@ public class Node {
      */
     protected static final ExecutorService pool = Executors.newCachedThreadPool();
 
+    /**
+     * Download service for downloading files
+     */
 
     protected static final DownloadService DS = new DownloadService();
 
@@ -49,6 +52,10 @@ public class Node {
      */
     private static MessageFactory mf = MessageFactory.getInstance();
 
+    /**
+     * Get the message factory
+     * @return the message factory
+     */
     public static MessageFactory getMf() {
         return mf;
     }
@@ -59,14 +66,21 @@ public class Node {
      */
     public static ThreadFunctions tf = new ThreadFunctions();
 
+    /**
+     * Logger for the node
+     */
+
     public static final Logger logger = logHandler.getLogger();
 
     /**
-     * Directory for the node
+     * Connection handler for handling connections
      */
 
-
     protected static connectionHandler ch = new connectionHandler();
+
+    /**
+     * Socket handler for handling sockets
+     */
 
     protected static socketHandler socketHandler  = klab.app.socketHandler.getInstance();
 
@@ -96,14 +110,19 @@ public class Node {
 
             ServerSocket downloadSocket = new ServerSocket(downloadPort);
 
+            //established ServerSockets for the node and download ports
+
             socketHandler = klab.app.socketHandler.getInstance();
 
             socketHandler.setNodeSocket(nodeSocket);
             socketHandler.setDownloadSocket(downloadSocket);
 
+            //initiate command line interface
+
             commandLine commandLine = new commandLine(directory);
             pool.submit(commandLine);
 
+            //initiate listening for connections and downloads
             pool.submit(ch.listenForConnections(nodeSocket, directory));
             pool.submit(ch.listenForDownload(downloadSocket, directory));
 

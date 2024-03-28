@@ -12,7 +12,19 @@ import java.util.logging.Level;
 
 import static klab.app.Node.*;
 
+/**
+ * Class for handling connections
+ * @version 1.0
+ */
+
 public class connectionHandler {
+
+    /**
+     * connectToPeer method for connecting to a peer
+     *
+     * @param args      arguments
+     * @param directory directory
+     */
 
     public void connectToPeer(String[] args, File directory) {
         try {
@@ -25,6 +37,14 @@ public class connectionHandler {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
         }
     }
+
+    /**
+     * listenForConnections method for listening for connections
+     *
+     * @param nodeSocket node socket
+     * @param directory  directory
+     * @return runnable
+     */
 
     public Runnable listenForConnections(ServerSocket nodeSocket, File directory) {
         return () -> {
@@ -39,6 +59,14 @@ public class connectionHandler {
         };
     }
 
+    /**
+     * establishConnection method for establishing a connection
+     *
+     * @param s         socket
+     * @param directory directory
+     * @throws IOException if I/O problem
+     */
+
 
     public void establishConnection(Socket s, File directory) throws IOException {
         synchronized (peerList) {
@@ -50,6 +78,14 @@ public class connectionHandler {
         logger.info("Connected to peer: " + s.getInetAddress() + ":" + s.getPort() + " Peer List " +
                 "Size: " + peerList.size());
     }
+
+    /**
+     * listenForDownload method for listening for downloads
+     *
+     * @param downloadSocket download socket
+     * @param directory      directory
+     * @return runnable
+     */
 
     public Runnable listenForDownload(ServerSocket downloadSocket, File directory) {
         return () -> {
@@ -71,6 +107,13 @@ public class connectionHandler {
             }
         };
     }
+
+    /**
+     * downloadFile method for downloading a file
+     *
+     * @param args      arguments
+     * @param directory directory
+     */
 
     public void downloadFile(String[] args, File directory) {
         try {
