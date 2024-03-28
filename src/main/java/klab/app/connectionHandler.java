@@ -60,12 +60,8 @@ public class connectionHandler {
                     logger.info("Download Connection accepted" + s.getInetAddress() + ":" + s.getPort());
                     MessageOutput out = new MessageOutput(s.getOutputStream());
                     MessageInput in = new MessageInput(s.getInputStream());
-                    byte[] fileID;
-                    logger.info("Uploading file: inside of listenForDownload before readBytes");
-                    if (in.size() <= 15) {
-                        logger.info("message input is smaller than 15 bytes");
-                    }
-                    fileID = in.readBytes(15);
+                    String fileID = in.readString();
+                    logger.info("Downloading file: " + fileID);
                     logger.info("Uploading file: inside of listenForDownload before thread");
                     DS.getExecutor().execute(DS.upload(out, fileID, s, directory));
                     logger.info("Uploading file: inside of listenForDownload after thread");

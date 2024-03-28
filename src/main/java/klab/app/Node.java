@@ -1,10 +1,12 @@
 package klab.app;
 
+import klab.serialization.Result;
 import klab.serialization.Search;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ public class Node {
      * List of searches
      */
     protected static HashMap<String, Search> searchList = new HashMap<String, Search>();
+
 
     /**
      * List of peers

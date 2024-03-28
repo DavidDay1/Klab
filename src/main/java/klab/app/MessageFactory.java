@@ -3,6 +3,7 @@ package klab.app;
 import klab.serialization.*;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.List;
 
@@ -112,5 +113,9 @@ public class MessageFactory {
 
     public static byte[] generateFileID(File f) {
         return ByteBuffer.allocate(4).putInt(f.hashCode()).array();
+    }
+
+    public static byte[] hexStringToByteArray(String s) {
+        return new BigInteger(s, 16).toByteArray();
     }
 }

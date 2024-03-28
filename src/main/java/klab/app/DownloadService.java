@@ -8,7 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -17,6 +19,25 @@ import static klab.app.Node.logger;
 
 public class DownloadService {
     private Executor executor = Executors.newFixedThreadPool(4);
+
+    private HashMap<String, String> fileIDToNameList = new HashMap<String, String>();
+
+    public void setFileIDToNameList(File directory) {
+
+        for (File f : directory.listFiles()) {
+            String fileIdString = "";
+            byte[] fileID = ByteBuffer.allocate(4).putInt(f.hashCode()).array();
+            for (int i = 0; i < fileID.length; i++) {
+                fileIdString += String.format("%02X", fileID[i]);
+            }
+            logger.info("File ID: " + fileIdString + " File Name: " + f.getName());
+            fileIDToNameList.put(fileIdString, f.getName());
+        }
+    }
+
+    public HashMap<String, String> getFileIDToNameList() {
+        return fileIDToNameList;
+    }
 
     public Executor getExecutor() {
         return executor;
@@ -30,13 +51,13 @@ public class DownloadService {
                 logger.info("Downloading file: inside download");
                 File file = new File(args[4]);
                 logger.info("Downloading file: " + file);
-                FileOutputStream fos = new FileOutputStream(file.getAbsoluteFile());
+                FileOutputStream fos = new FileOutputStream(file.getAbsoluteFile() + "\\");
                 logger.info("Creating FileOutputStream");
-                byte[] fileID = args[3].getBytes();
-                logger.info("Downloading file: " + file + " with fileID: " + Arrays.toString(fileID));
-                out.write(fileID);
+                logger.info("Downloading file: " + file + " with fileID: " + args[3]);
+                out.writeString(args[3] + "\n");
                 int i;
                 String result = in.readString();
+                logger.info("Received OK/Error: " + result);
                 if (result.equals("OK\n")){
                     while ((i = in.read()) != -1) {
                         fos.write(i);
@@ -45,6 +66,7 @@ public class DownloadService {
                     while ((i = in.read()) != -1) {
                         System.out.print((char) i);
                     }
+                    logger.info("Finished downloading file");
                     s.close();
                 }
             } catch (IOException e) {
@@ -53,25 +75,30 @@ public class DownloadService {
         };
     }
 
-    public Runnable upload(MessageOutput out, byte[] fileID, Socket s, File directory) {
+    public Runnable upload(MessageOutput out, String fileID, Socket s, File directory) {
         return () -> {
             try {
                 logger.info("Downloading file: inside upload" );
-                File downloadSearch = FileSearch.searchByID(directory, fileID);
+                setFileIDToNameList(directory);
+                HashMap<String, String> fileIDToNameList = getFileIDToNameList();
+                String filename = fileIDToNameList.get(fileID);
+                logger.info("Downloading file with filename: " + filename);
 
-                if (downloadSearch != null) {
-                    logger.info("uploading file: " + downloadSearch);
+                if (filename != null) {
+                    List<File> downloadSearch = FileSearch.searchByName(directory, filename);
+                    logger.info("uploading file: " + downloadSearch.get(0));
                     out.writeString("OK\n");
-                    FileInputStream fis = new FileInputStream(downloadSearch.getAbsoluteFile());
+                    FileInputStream fis = new FileInputStream(downloadSearch.get(0));
                     int j;
                     while ((j = fis.read()) != -1) {
                         out.write(j);
                     }
+                    logger.info("Finished uploading file");
                     fis.close();
                     s.close();
                 } else {
                     out.writeString("ERROR\n");
-                    out.writeString("Bad File ID: " + Arrays.toString(fileID) + "\n");
+                    out.writeString("Bad File ID: " + fileID + "\n");
                     s.close();
                 }
 

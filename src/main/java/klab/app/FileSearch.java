@@ -17,20 +17,18 @@ import static klab.app.Node.logger;
 public class FileSearch {
 
     private String name;
-    private byte[] fileID;
+    private String fileID;
 
     /**
      * Constructor for FileSearch
      * @param name name of file to search for
      */
 
-    public FileSearch(String name) {
+    public FileSearch(String name, String fileID) {
         this.name = name;
-    }
-
-    public FileSearch(byte[] fileID) {
         this.fileID = fileID;
     }
+
 
     /**
      * Method for accepting files
@@ -46,11 +44,11 @@ public class FileSearch {
         return name.contains(this.name);
     }
 
-    public boolean acceptByID(File dir, String name) {
-        if (fileID.length == 0){
+    public boolean acceptByID(File dir, String id) {
+        if (fileID.equals("")){
             return false;
         }
-        return Arrays.equals(MessageFactory.generateFileID(new File(dir, name)), this.fileID);
+        return id.equals(this.fileID);
     }
 
 
@@ -64,14 +62,14 @@ public class FileSearch {
     public static List<File> searchByName(File dir, String name) {
         logger.info("Searching for: " + name);
         logger.info("In directory: " + dir.getName());
-        FileSearch filter = new FileSearch(name);
+        FileSearch filter = new FileSearch(name, null);
         return search(dir, filter::acceptByName);
     }
 
-    public static File searchByID(File dir, byte[] fileID) {
+    public static File searchByID(File dir, String fileID) {
         logger.info("Searching for: " + fileID);
         logger.info("In directory: " + dir.getName());
-        FileSearch filter = new FileSearch(fileID);
+        FileSearch filter = new FileSearch(null, fileID);
         File[] file = dir.listFiles(filter::acceptByID);
         if (file.length == 0) {
             return null;
