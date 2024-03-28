@@ -1,80 +1,50 @@
-Mar 28, 2024 3:13:36 AM klab.app.socketHandler setNodeSocket
+Mar 28, 2024 3:32:01 AM klab.app.socketHandler setNodeSocket
 INFO: Setting node socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4002]
-Mar 28, 2024 3:13:36 AM klab.app.socketHandler setDownloadSocket
+Mar 28, 2024 3:32:01 AM klab.app.socketHandler setDownloadSocket
 INFO: Setting download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4003]
-Mar 28, 2024 3:13:36 AM klab.app.connectionHandler lambda$listenForDownload$1
+Mar 28, 2024 3:32:01 AM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Uploading file: inside of listenForDownload
-Mar 28, 2024 3:13:43 AM klab.app.commandLine run
+Mar 28, 2024 3:32:10 AM klab.app.commandLine run
 INFO: Connecting with directory C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\testDir
-Mar 28, 2024 3:13:43 AM klab.app.ThreadFunctions lambda$handleIn$1
+Mar 28, 2024 3:32:10 AM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Mar 28, 2024 3:13:43 AM klab.app.connectionHandler establishConnection
+Mar 28, 2024 3:32:10 AM klab.app.connectionHandler establishConnection
 INFO: Connected to peer: localhost/127.0.0.1:4001 Peer List Size: 1
-Mar 28, 2024 3:13:46 AM klab.app.commandLine run
-INFO: Searching peer: localhost/127.0.0.1:4001 to search for hog
-Mar 28, 2024 3:13:46 AM klab.app.ThreadFunctions lambda$handleOutSearch$0
-INFO: Searching for: hog
-Mar 28, 2024 3:13:46 AM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Received message: Response: ID=B9922310E44271DD2EB08D7FCA58CC TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4000 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog]
-Mar 28, 2024 3:13:46 AM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Processing responseResponse: ID=B9922310E44271DD2EB08D7FCA58CC TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4000 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog]
-Mar 28, 2024 3:13:46 AM klab.app.ThreadFunctions lambda$handleIn$1
+Mar 28, 2024 3:32:14 AM klab.app.commandLine run
+INFO: Searching peer: localhost/127.0.0.1:4001 to search for yyy
+Mar 28, 2024 3:32:14 AM klab.app.ThreadFunctions lambda$handleOutSearch$0
+INFO: Searching for: yyy
+Mar 28, 2024 3:32:15 AM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Response: ID=FA98F6D14FB55E78E5DEEC4510CFB2 TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4000 [Result: FileID=4D156C01 FileSize=2 bytes FileName=yyy]
+Mar 28, 2024 3:32:15 AM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing responseResponse: ID=FA98F6D14FB55E78E5DEEC4510CFB2 TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4000 [Result: FileID=4D156C01 FileSize=2 bytes FileName=yyy]
+Mar 28, 2024 3:32:15 AM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Mar 28, 2024 3:13:46 AM klab.app.ThreadFunctions lambda$handleResponse$3
-INFO: Received response message Response: ID=B9922310E44271DD2EB08D7FCA58CC TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4000 [Result: FileID=4D15ADE6 FileSize=1 bytes FileName=hog]
-Mar 28, 2024 3:13:46 AM klab.app.ThreadFunctions lambda$handleResponse$3
-INFO: Received response for search: hog from /127.0.0.1:4000
-Mar 28, 2024 3:14:13 AM klab.app.commandLine run
+Mar 28, 2024 3:32:15 AM klab.app.ThreadFunctions lambda$handleResponse$3
+INFO: Received response message Response: ID=FA98F6D14FB55E78E5DEEC4510CFB2 TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4000 [Result: FileID=4D156C01 FileSize=2 bytes FileName=yyy]
+Mar 28, 2024 3:32:15 AM klab.app.ThreadFunctions lambda$handleResponse$3
+INFO: Received response for search: yyy from /127.0.0.1:4000
+Mar 28, 2024 3:32:58 AM klab.app.commandLine run
 INFO: Downloading file
-Mar 28, 2024 3:14:13 AM klab.app.connectionHandler downloadFile
+Mar 28, 2024 3:32:58 AM klab.app.connectionHandler downloadFile
 INFO: Downloading file: inside of downloadFile
-Mar 28, 2024 3:14:13 AM klab.app.connectionHandler downloadFile
+Mar 28, 2024 3:32:58 AM klab.app.connectionHandler downloadFile
 INFO: Downloading file: inside of downloadFile before thread
-Mar 28, 2024 3:14:13 AM klab.app.connectionHandler downloadFile
+Mar 28, 2024 3:32:58 AM klab.app.connectionHandler downloadFile
 INFO: Downloading file: inside of downloadFile after thread
-Mar 28, 2024 3:14:13 AM klab.app.DownloadService lambda$download$0
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
 INFO: Downloading file: inside download
-Mar 28, 2024 3:14:13 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: hog
-Mar 28, 2024 3:14:13 AM klab.app.DownloadService lambda$download$0
-INFO: Creating FileOutputStream
-Mar 28, 2024 3:14:13 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: hog with fileID: 4D15ADE6
-Mar 28, 2024 3:14:13 AM klab.app.DownloadService lambda$download$0
-INFO: Received OK/Error: OK
-Mar 28, 2024 3:16:50 AM klab.app.commandLine run
-INFO: Downloading file
-Mar 28, 2024 3:16:50 AM klab.app.connectionHandler downloadFile
-INFO: Downloading file: inside of downloadFile
-Mar 28, 2024 3:16:50 AM klab.app.connectionHandler downloadFile
-INFO: Downloading file: inside of downloadFile before thread
-Mar 28, 2024 3:16:50 AM klab.app.connectionHandler downloadFile
-INFO: Downloading file: inside of downloadFile after thread
-Mar 28, 2024 3:16:50 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: inside download
-Mar 28, 2024 3:16:50 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: ogle
-Mar 28, 2024 3:16:50 AM klab.app.DownloadService lambda$download$0
-INFO: Creating FileOutputStream
-Mar 28, 2024 3:16:50 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: ogle with fileID: 4D15ADE6
-Mar 28, 2024 3:16:50 AM klab.app.DownloadService lambda$download$0
-INFO: Received OK/Error: OK
-Mar 28, 2024 3:17:12 AM klab.app.commandLine run
-INFO: Downloading file
-Mar 28, 2024 3:17:12 AM klab.app.connectionHandler downloadFile
-INFO: Downloading file: inside of downloadFile
-Mar 28, 2024 3:17:12 AM klab.app.connectionHandler downloadFile
-INFO: Downloading file: inside of downloadFile before thread
-Mar 28, 2024 3:17:12 AM klab.app.connectionHandler downloadFile
-INFO: Downloading file: inside of downloadFile after thread
-Mar 28, 2024 3:17:12 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: inside download
-Mar 28, 2024 3:17:12 AM klab.app.DownloadService lambda$download$0
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
 INFO: Downloading file: yyy
-Mar 28, 2024 3:17:12 AM klab.app.DownloadService lambda$download$0
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
 INFO: Creating FileOutputStream
-Mar 28, 2024 3:17:12 AM klab.app.DownloadService lambda$download$0
-INFO: Downloading file: yyy with fileID: 4D15ADE6
-Mar 28, 2024 3:17:12 AM klab.app.DownloadService lambda$download$0
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
+INFO: Downloading file: yyy with fileID: 4D156C01
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
 INFO: Received OK/Error: OK
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
+INFO: Downloading file: inside download OK
+Mar 28, 2024 3:32:58 AM klab.app.DownloadService lambda$download$0
+INFO: Finished downloading file
+Mar 28, 2024 3:33:42 AM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Disconnected from neighbor MessageInput is null or too short

@@ -58,17 +58,21 @@ public class DownloadService {
                 int i;
                 String result = in.readString();
                 logger.info("Received OK/Error: " + result);
-                if (result.equals("OK\n")){
+                if (result.equals("OK")){
+                    logger.info("Downloading file: inside download OK");
+                    //get rid of /n's
+                    in.read();
                     while ((i = in.read()) != -1) {
                         fos.write(i);
                     }
-                } else if (result.equals("ERROR\n")) {
+                } else if (result.equals("ERROR")) {
+                    logger.info("Downloading file: inside download ERROR");
                     while ((i = in.read()) != -1) {
                         System.out.print((char) i);
                     }
-                    logger.info("Finished downloading file");
-                    s.close();
                 }
+                logger.info("Finished downloading file");
+                s.close();
             } catch (IOException e) {
                 logger.info("Error downloading file: " + e.getMessage());
             }
