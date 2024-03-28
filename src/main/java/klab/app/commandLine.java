@@ -44,7 +44,7 @@ public class commandLine implements Runnable {
                     if (downloadArgs.length != 5) {
                         System.err.println("Bad Download command: Expect download <download node> <download port> <file ID> <file name>");
                     } else {
-                        Node.ch.connectToPeer(downloadArgs, this.directory);
+                        Node.ch.downloadFile(downloadArgs, this.directory);
                     }
                     break;
                 default:

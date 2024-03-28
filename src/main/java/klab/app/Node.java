@@ -19,9 +19,6 @@ import java.util.logging.*;
  */
 
 public class Node {
-    public ServerSocket nodeSocket;
-
-    public ServerSocket downloadSocket;
 
 
     /**
@@ -68,6 +65,9 @@ public class Node {
 
     protected static connectionHandler ch = new connectionHandler();
 
+    protected static socketHandler socketHandler  = klab.app.socketHandler.getInstance();
+
+
     /**
      * Main method for Node
      *
@@ -93,12 +93,16 @@ public class Node {
 
             ServerSocket downloadSocket = new ServerSocket(downloadPort);
 
+            socketHandler = klab.app.socketHandler.getInstance();
 
+            socketHandler.setNodeSocket(nodeSocket);
+            socketHandler.setDownloadSocket(downloadSocket);
 
             commandLine commandLine = new commandLine(directory);
             pool.submit(commandLine);
 
             pool.submit(ch.listenForConnections(nodeSocket, directory));
+            pool.submit(ch.listenForDownload(downloadSocket, directory));
 
 
         } catch (IOException e) {

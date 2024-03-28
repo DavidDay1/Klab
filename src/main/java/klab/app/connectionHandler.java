@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.logging.Level;
 
 import static klab.app.Node.*;
@@ -57,7 +56,11 @@ public class connectionHandler {
             while (!downloadSocket.isClosed()) {
                 try {
                     Socket s = downloadSocket.accept();
-                    pool.submit(DS.uploadFile(s.getOutputStream()));
+                    MessageOutput out = new MessageOutput(s.getOutputStream());
+                    MessageInput in = new MessageInput(s.getInputStream());
+                    byte[] fileID = new byte[15];
+                    fileID = in.readBytes(fileID.length);
+                    DS.getExecutor().execute(DS.upload(out, fileID, s, directory));
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
                 }
@@ -67,15 +70,15 @@ public class connectionHandler {
 
     public void downloadFile(String[] args, File directory) {
         try {
+            logger.info("Downloading file: inside of downloadFile");
             String peerIp = args[1];
             int peerPort = Integer.parseInt(args[2]);
-            String fileID = args[3];
-            String fileName = args[4];
-
             Socket s = new Socket(peerIp, peerPort);
             MessageOutput out = new MessageOutput(s.getOutputStream());
-            out.writeString(fileID);
-            out.write('\n');
+            MessageInput in = new MessageInput(s.getInputStream());
+            logger.info("Downloading file: inside of downloadFile before thread");
+            DS.getExecutor().execute(DS.download(out, in, args, s));
+
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
         }

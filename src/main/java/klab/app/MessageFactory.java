@@ -109,4 +109,8 @@ public class MessageFactory {
             r.addResult(result);
         }
     }
+
+    public static byte[] generateFileID(File f) {
+        return ByteBuffer.allocate(4).putInt(f.hashCode()).array();
+    }
 }

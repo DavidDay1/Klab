@@ -5,6 +5,7 @@ import klab.serialization.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -122,6 +123,7 @@ public class ThreadFunctions {
             try {
                 //confirming message type
                 Search search = (Search) m;
+
                 logger.info("Received search: " + search);
 
                 for (Peer p : peerList) {
@@ -131,8 +133,12 @@ public class ThreadFunctions {
                     }
                 }
 
+                klab.app.socketHandler socketHandler = klab.app.socketHandler.getInstance();
+
+                ServerSocket downloadSocket = socketHandler.getDownloadSocket();
+
                 //creating a response
-                Response response = new Response(m.getID(), m.getTTL(), m.getRoutingService(), responseHost);
+                Response response = new Response(m.getID(), m.getTTL(), m.getRoutingService(), new InetSocketAddress(s.getInetAddress(), downloadSocket.getLocalPort()));
                 logger.info("Created response: " + response + " to " + s.getRemoteSocketAddress() + " for search: " +
                         search.getSearchString());
 
@@ -145,7 +151,7 @@ public class ThreadFunctions {
                     }
                 } else {
                     //check files with matching search string
-                    List<File> results = FileSearch.search(directory, search.getSearchString());
+                    List<File> results = FileSearch.searchByName(directory, search.getSearchString());
                     logger.info("Searching for files with search string: " + search.getSearchString());
 
                     if (!results.isEmpty()) {
@@ -188,6 +194,7 @@ public class ThreadFunctions {
     public Runnable handleResponse(Message m, Socket s, HashMap<String, Search> searchList, MessageFactory mf) {
         return () -> {
             Response r = (Response) m;
+
 
             //look for search matching response
             Search search = searchList.get(Arrays.toString(r.getID()));

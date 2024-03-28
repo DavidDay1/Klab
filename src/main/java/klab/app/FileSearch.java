@@ -14,9 +14,10 @@ import static klab.app.Node.logger;
  * @version 1.0
  */
 
-public class FileSearch implements FilenameFilter {
+public class FileSearch {
 
-    String name;
+    private String name;
+    private byte[] fileID;
 
     /**
      * Constructor for FileSearch
@@ -27,6 +28,10 @@ public class FileSearch implements FilenameFilter {
         this.name = name;
     }
 
+    public FileSearch(byte[] fileID) {
+        this.fileID = fileID;
+    }
+
     /**
      * Method for accepting files
      * @param dir directory to search
@@ -34,12 +39,20 @@ public class FileSearch implements FilenameFilter {
      * @return true if file is found, false otherwise
      */
 
-    public boolean accept(File dir, String name) {
+    public boolean acceptByName(File dir, String name) {
         if (name.equals("")){
             return false;
         }
         return name.contains(this.name);
     }
+
+    public boolean acceptByID(File dir, String name) {
+        if (fileID.length == 0){
+            return false;
+        }
+        return Arrays.equals(MessageFactory.generateFileID(new File(dir, name)), this.fileID);
+    }
+
 
     /**
      * Method for searching files
@@ -48,15 +61,28 @@ public class FileSearch implements FilenameFilter {
      * @return list of files found
      */
 
-    public static List<File> search(File dir, String name) {
+    public static List<File> searchByName(File dir, String name) {
         logger.info("Searching for: " + name);
         logger.info("In directory: " + dir.getName());
         FileSearch filter = new FileSearch(name);
+        return search(dir, filter::acceptByName);
+    }
+
+    public static File searchByID(File dir, byte[] fileID) {
+        logger.info("Searching for: " + fileID);
+        logger.info("In directory: " + dir.getName());
+        FileSearch filter = new FileSearch(fileID);
+        File[] file = dir.listFiles(filter::acceptByID);
+        if (file.length == 0) {
+            return null;
+        }
+        return file[0];
+    }
+
+    private static List<File> search(File dir, FilenameFilter filter) {
         List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles(filter)));
 
-        files = files.stream()
-                .sorted(Comparator.comparingLong(File::length))
-                .toList();
+        files.sort(Comparator.comparing(File::length));
 
         return files;
     }
