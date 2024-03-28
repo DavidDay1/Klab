@@ -55,12 +55,20 @@ public class connectionHandler {
         return () -> {
             while (!downloadSocket.isClosed()) {
                 try {
+                    logger.info("Uploading file: inside of listenForDownload");
                     Socket s = downloadSocket.accept();
+                    logger.info("Download Connection accepted" + s.getInetAddress() + ":" + s.getPort());
                     MessageOutput out = new MessageOutput(s.getOutputStream());
                     MessageInput in = new MessageInput(s.getInputStream());
-                    byte[] fileID = new byte[15];
-                    fileID = in.readBytes(fileID.length);
+                    byte[] fileID;
+                    logger.info("Uploading file: inside of listenForDownload before readBytes");
+                    if (in.size() <= 15) {
+                        logger.info("message input is smaller than 15 bytes");
+                    }
+                    fileID = in.readBytes(15);
+                    logger.info("Uploading file: inside of listenForDownload before thread");
                     DS.getExecutor().execute(DS.upload(out, fileID, s, directory));
+                    logger.info("Uploading file: inside of listenForDownload after thread");
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
                 }
@@ -78,6 +86,7 @@ public class connectionHandler {
             MessageInput in = new MessageInput(s.getInputStream());
             logger.info("Downloading file: inside of downloadFile before thread");
             DS.getExecutor().execute(DS.download(out, in, args, s));
+            logger.info("Downloading file: inside of downloadFile after thread");
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());

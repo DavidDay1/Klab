@@ -27,10 +27,16 @@ public class DownloadService {
         return () -> {
             try {
                 //create file output stream with filename
-                FileOutputStream fos = new FileOutputStream(args[4]);
-                String result = in.readString();
-                out.writeString(args[3] + "\n");
+                logger.info("Downloading file: inside download");
+                File file = new File(args[4]);
+                logger.info("Downloading file: " + file);
+                FileOutputStream fos = new FileOutputStream(file.getAbsoluteFile());
+                logger.info("Creating FileOutputStream");
+                byte[] fileID = args[3].getBytes();
+                logger.info("Downloading file: " + file + " with fileID: " + Arrays.toString(fileID));
+                out.write(fileID);
                 int i;
+                String result = in.readString();
                 if (result.equals("OK\n")){
                     while ((i = in.read()) != -1) {
                         fos.write(i);
