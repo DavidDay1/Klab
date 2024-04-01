@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 
 import static klab.app.Node.*;
@@ -117,16 +118,13 @@ public class connectionHandler {
 
     public void downloadFile(String[] args, File directory) {
         try {
-            logger.info("Downloading file: inside of downloadFile");
             String peerIp = args[1];
             int peerPort = Integer.parseInt(args[2]);
             Socket s = new Socket(peerIp, peerPort);
-            MessageOutput out = new MessageOutput(s.getOutputStream());
-            MessageInput in = new MessageInput(s.getInputStream());
-            logger.info("Downloading file: inside of downloadFile before thread");
-            DS.getExecutor().execute(DS.download(out, in, args, s));
-            logger.info("Downloading file: inside of downloadFile after thread");
+            DS.getExecutor().execute(DS.download(args, s));
 
+        } catch (SocketException e) {
+            System.err.println("Invalid Download Port or Address: " + e.getMessage());
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
         }

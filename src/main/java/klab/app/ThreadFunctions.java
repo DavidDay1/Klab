@@ -34,21 +34,22 @@ public class ThreadFunctions {
      */
 
     public Runnable handleOutSearch(String command, Socket s, MessageOutput out, MessageFactory mf, HashMap<String,
-            Search> searchList) {
+            Search> searchList)  {
         return () -> {
-                try {
-                    logger.info("Searching for: " + command);
-                    Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(),
-                            mf.generateRoutingService(), command);
-                    synchronized (out) {
-                        searchMessage.encode(out);
-                    }
-                    searchList.put(Arrays.toString(searchMessage.getID()), searchMessage);
-                } catch (BadAttributeValueException e) {
-                    logger.log(Level.WARNING, "Invalid message: " + e.getMessage());
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+            try {
+                logger.info("Searching for: " + command);
+                Search searchMessage = new Search(mf.generateMsgID(), mf.generateTTL(),
+                        mf.generateRoutingService(), command);
+                synchronized (out) {
+                    searchMessage.encode(out);
                 }
+                searchList.put(Arrays.toString(searchMessage.getID()), searchMessage);
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+            } catch (BadAttributeValueException e) {
+                System.err.println("Unable to send search request: " + e.getMessage());
+                System.out.print("> ");
+            }
         };
     }
 
@@ -90,7 +91,7 @@ public class ThreadFunctions {
                         pool.submit(new ThreadFunctions().handleSearch(m, out, s, directory, responseHost, Node.getMf()));
                     }
                 } catch (IOException e) {
-                        logger.info("Disconnected from neighbor " + e.getMessage());
+                    logger.info("Disconnected from neighbor " + e.getMessage());
                     try {
                         s.close();
                     } catch (IOException ex) {

@@ -55,7 +55,11 @@ public class commandLine implements Runnable {
                     }
                     break;
                 default:
-                    for (Peer p : Node.peerList) {
+                    if (Node.peerList.isEmpty()) {
+                        System.err.println("No peers to search for " + command);
+                        break;
+                    } else {
+                        for (Peer p : Node.peerList) {
                             try {
                                 logger.info("Searching peer: " + p.getSocket().getInetAddress() + ":" + p.getSocket().getPort() + " to search for " + command);
                                 Node.pool.submit(Node.tf.handleOutSearch(command, p.getSocket(),
@@ -65,6 +69,7 @@ public class commandLine implements Runnable {
                                 throw new RuntimeException(e);
                             }
                         }
+                    }
                     break;
             }
 

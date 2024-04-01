@@ -173,4 +173,8 @@ public class MessageInput {
         return in.available();
     }
 
+    public long transferTo(OutputStream out) throws IOException {
+        return in.transferTo(out);
+    }
+
 }

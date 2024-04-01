@@ -3,16 +3,15 @@ package klab.app;
 import klab.serialization.MessageInput;
 import klab.serialization.MessageOutput;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static klab.app.Node.logger;
@@ -23,7 +22,7 @@ import static klab.app.Node.logger;
  */
 
 public class DownloadService {
-    private Executor executor = Executors.newFixedThreadPool(4);
+    private ExecutorService executor = Executors.newFixedThreadPool(4);
 
     private HashMap<String, String> fileIDToNameList = new HashMap<String, String>();
 
@@ -59,7 +58,7 @@ public class DownloadService {
      * Get the executor
      * @return the executor
      */
-    public Executor getExecutor() {
+    public ExecutorService getExecutor() {
         return executor;
     }
 
@@ -73,38 +72,29 @@ public class DownloadService {
      * @param s socket
      * @return runnable
      */
-    public Runnable download(MessageOutput out, MessageInput in, String[] args, Socket s) {
+    public Runnable download(String[] args, Socket s) {
         return () -> {
             try {
+                InputStream is = s.getInputStream();
+                OutputStream os = s.getOutputStream();
                 //create file output stream with filename
-                logger.info("Downloading file: inside download");
                 File file = new File(args[4]);
-                logger.info("Downloading file: " + file);
-                FileOutputStream fos = new FileOutputStream(file.getAbsoluteFile() + "\\");
-                logger.info("Creating FileOutputStream");
-                logger.info("Downloading file: " + file + " with fileID: " + args[3]);
-                out.writeString(args[3] + "\n");
+                os.write((args[3] + "\n").getBytes());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                String response = reader.readLine();
                 int i;
-                String result = in.readString();
-                logger.info("Received OK/Error: " + result);
-                if (result.equals("OK")){
-                    logger.info("Downloading file: inside download OK");
-                    //get rid of /n's
-                    in.read();
-                    in.read();
-                    while ((i = in.read()) != -1) {
-                        fos.write(i);
-                    }
-                } else if (result.equals("ERROR")) {
-                    logger.info("Downloading file: inside download ERROR");
-                    while ((i = in.read()) != -1) {
-                        System.out.print((char) i);
+                logger.info("Received OK/Error: " + response);
+                if ("OK".equals(response)) {
+                    FileOutputStream fos = new FileOutputStream(file.getAbsoluteFile() + "\\");
+                    is.transferTo(fos);
+                } else if ("ERROR".equals(response)) {
+                    while ((i = is.read()) != -1) {
+                        System.out.print( (char) i);
                     }
                 }
-                logger.info("Finished downloading file");
                 s.close();
             } catch (IOException e) {
-                logger.info("Error downloading file: " + e.getMessage());
+                logger.info("Error downloading file: " + e.getMessage() + Arrays.toString(e.getStackTrace()));
             }
         };
     }
