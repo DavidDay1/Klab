@@ -62,6 +62,8 @@ class DownloadTest {
       server = response.getResponseHost().getAddress().getHostAddress();
       port = response.getResponseHost().getPort();
 
+      System.out.println("Download server: " + server + ":" + port);
+
       response.getResultList().forEach(r -> files.put(r.getFileName(), bytes2String(r.getFileID())));
       
       testBasic();

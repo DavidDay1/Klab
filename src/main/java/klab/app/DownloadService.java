@@ -66,8 +66,6 @@ public class DownloadService {
 
 /**
      * Download a file
-     * @param out message output
-     * @param in message input
      * @param args arguments
      * @param s socket
      * @return runnable
@@ -108,7 +106,7 @@ public class DownloadService {
      * @return runnable
      */
 
-    public Runnable upload(MessageOutput out, String fileID, Socket s, File directory) {
+    public Runnable upload(OutputStream out, String fileID, Socket s, File directory) {
         return () -> {
             try {
                 logger.info("Downloading file: inside upload" );
@@ -120,18 +118,21 @@ public class DownloadService {
                 if (filename != null) {
                     List<File> downloadSearch = FileSearch.searchByName(directory, filename);
                     logger.info("uploading file: " + downloadSearch.get(0));
-                    out.writeString("OK\n\n");
+                    out.write("OK\n\n".getBytes());
                     FileInputStream fis = new FileInputStream(downloadSearch.get(0));
+                    byte[] buffer = new byte[4096];
                     int j;
-                    while ((j = fis.read()) != -1) {
-                        out.write(j);
+                    while ((j = fis.read(buffer)) != -1) {
+                        out.write(buffer, 0, j);
                     }
                     logger.info("Finished uploading file");
                     fis.close();
                     s.close();
                 } else {
-                    out.writeString("ERROR\n\n");
-                    out.writeString("Bad File ID: " + fileID + "\n");
+                    out.write("ERROR\n\n".getBytes());
+                    out.write("Bad File ID: ".getBytes());
+                    out.write(fileID.getBytes());
+                    out.write("\n".getBytes());
                     s.close();
                 }
 

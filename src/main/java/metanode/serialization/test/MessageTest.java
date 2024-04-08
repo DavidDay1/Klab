@@ -10,6 +10,7 @@ import org.junit.jupiter.api.function.Executable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -229,6 +230,21 @@ public class MessageTest {
         assertTrue(Arrays.equals(buf, encoded));
     }
 
+
+    @Test
+    public void SpamEncode() throws IOException {
+        byte[] buf = new byte[]{0x45, 0, (byte) 0XFF, 0x02, (byte) 192, (byte) 168, 1, 1, 0, 80, (byte) 127, (byte) 0, 0, 1, 0, 80};
+
+        Message newMessage = new Message(buf);
+        byte[] encoded = newMessage.encode();
+
+        Message message2 = new Message(encoded);
+        byte[] encoded2 = message2.encode();
+
+        assertTrue(Arrays.equals(buf, encoded2));
+
+    }
+
     /**
      * Test parameter constructor
      */
@@ -285,16 +301,12 @@ public class MessageTest {
 
     @Test
     void test() throws IllegalArgumentException, IOException {
-        Message msg = new Message(new byte[] { 0x41, 0, 59, 0 });
+        Message msg = new Message(new byte[]{0x41, 0, 59, 0});
         assertEquals(MessageType.RequestMetaNodes, msg.getType());
         assertEquals(ErrorType.None, msg.getError());
         assertEquals(59, msg.getSessionID());
         assertEquals(0, msg.getAddrList().size());
     }
-
-
-
-
 
 
 }

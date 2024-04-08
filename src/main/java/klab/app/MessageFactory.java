@@ -89,7 +89,11 @@ public class MessageFactory {
         //System.out.println("Search Response for " + s.getSearchString() + ":\nDownload host: " + r.getResponseHost());
         for (Result result : r.getResultList()) {
             //System.out.println("\t" + result.getFileName() + ": ID " + String.format("%X", ByteBuffer.wrap(result.getFileID()).getInt()) + "(" + result.getFileSize() + " bytes)");
-            message += "\t" + result.getFileName() + ": ID " + String.format("%X", ByteBuffer.wrap(result.getFileID()).getInt()) + "(" + result.getFileSize() + " bytes)\n";
+            message += "\t" + result.getFileName() + ": ID ";
+            for (int i = 0; i < result.getFileID().length; i++) {
+                message += String.format("%02X", result.getFileID()[i]);
+            }
+            message +="(" + result.getFileSize() + " bytes)\n";
         }
         //System.out.print("> ");
         message += "> ";

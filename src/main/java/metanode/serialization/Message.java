@@ -1,6 +1,7 @@
 package metanode.serialization;
 
 import java.io.*;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.*;
@@ -15,7 +16,7 @@ public class Message {
     private MessageType type;
     private ErrorType error;
     private int sessionID;
-    private Set<InetSocketAddress> addressSet;
+    private Set<InetSocketAddress> addressSet = new LinkedHashSet<>();
     private static final int VERSION = 0b0100;
 
     /**
@@ -47,7 +48,7 @@ public class Message {
      *
      * @param buf buffer containing encoded packet
      * @throws IOException              if byte array too long/short or buf is null
-     * @throws IllegalArgumentException if buffer is too long/short or buf is null
+     * @throws IllegalArgumentException if bad attribute value
      */
 
     public Message(byte[] buf) throws IOException, IllegalArgumentException {
@@ -55,12 +56,16 @@ public class Message {
             throw new IOException("Buffer cannot be null");
         }
         if (buf.length < 4) {
-            throw new IllegalArgumentException("Buffer must be at least 4 bytes long");
+            throw new IOException("Buffer must be at least 4 bytes long");
         }
         ByteArrayInputStream in = new ByteArrayInputStream(buf);
 
         int temp = in.read();
         type = MessageType.getByCode(temp);
+
+        if (type == null) {
+            throw new IllegalArgumentException("Invalid message type: " + temp);
+        }
 
         byte tempVer = (byte) (((byte) temp & 0xFFFFFFF0) >> 4);
         if (tempVer != VERSION) {
@@ -68,6 +73,10 @@ public class Message {
         }
 
         error = ErrorType.getByCode(in.read());
+
+        if (error == null) {
+            throw new IllegalArgumentException("Invalid error code");
+        }
 
         if (error.getCode() != 0 && !Objects.equals(type.getCmd(), "AR")) {
             throw new IllegalArgumentException("Only AnswerRequest can have a non-zero error code");
@@ -99,9 +108,6 @@ public class Message {
             int port = (in.read() & 0xFF) << 8 | (in.read() & 0xFF);
             InetAddress addr = InetAddress.getByAddress(ip);
             this.addAddress(new InetSocketAddress(addr, port));
-            if (this.addressSet.size() > 255) {
-                throw new IllegalArgumentException("Too many addresses");
-            }
         }
 
     }
@@ -215,10 +221,14 @@ public class Message {
      */
 
     public Message addAddress(InetSocketAddress newAddress) throws IllegalArgumentException {
-        if (type.getCmd().equals("RN") || type.getCmd().equals("RM") || addressSet.size() == 255 || newAddress == null) {
+        if (type.getCmd().equals("RN") || type.getCmd().equals("RM") || newAddress == null || addressSet.size() == 255) {
             throw new IllegalArgumentException("Cannot add an address to this message");
         }
-        addressSet.add(newAddress);
+        if (newAddress.getAddress() instanceof Inet4Address) {
+            addressSet.add(newAddress);
+        } else {
+            throw new IllegalArgumentException("Only IPv4 addresses are supported");
+        }
         return this;
     }
 

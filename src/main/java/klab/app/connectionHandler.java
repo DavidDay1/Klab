@@ -5,6 +5,8 @@ import klab.serialization.MessageOutput;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -95,7 +97,7 @@ public class connectionHandler {
                     logger.info("Uploading file: inside of listenForDownload");
                     Socket s = downloadSocket.accept();
                     logger.info("Download Connection accepted" + s.getInetAddress() + ":" + s.getPort());
-                    MessageOutput out = new MessageOutput(s.getOutputStream());
+                    OutputStream out = s.getOutputStream();
                     MessageInput in = new MessageInput(s.getInputStream());
                     String fileID = in.readString();
                     logger.info("Downloading file: " + fileID);
