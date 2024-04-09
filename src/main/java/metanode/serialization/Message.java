@@ -33,12 +33,11 @@ public class Message {
         if (messageType == null || errorType == null) {
             throw new IllegalArgumentException("Message type and error type cannot be null");
         }
-        this.type = messageType;
-        this.error = errorType;
+        this.type = Objects.requireNonNull(messageType);
+        this.error = Objects.requireNonNull(errorType);
         if (!Objects.equals(type.getCmd(), "AR") && error.getCode() != 0) {
             throw new IllegalArgumentException("Only AnswerRequest can have a non-zero error code");
         }
-        id = id & 0xFF;
         this.setSessionID(id);
     }
 
@@ -122,7 +121,7 @@ public class Message {
     public byte[] encode() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         out.write((VERSION << 4) | type.getCode());
-        if (Objects.equals(type.getCmd(), "AnswerRequest")) {
+        if (Objects.equals(type.getCmd(), "AR")) {
             out.write(error.getCode());
         } else {
             out.write(0);
@@ -243,9 +242,10 @@ public class Message {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Message message)) return false;
+        if (!(o instanceof Message)) return false;
+        Message message = (Message) o;
         return sessionID == message.sessionID && type == message.type && error == message.error &&
-                Objects.equals(addressSet, message.addressSet);
+                Objects.equals(this.getAddrList(), ((Message) o).getAddrList());
     }
 
     /**
@@ -256,6 +256,6 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, error, sessionID, addressSet);
+        return Objects.hash(type, error, sessionID, getAddrList());
     }
 }

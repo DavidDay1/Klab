@@ -112,6 +112,9 @@ public enum MessageType {
 
 
     public static MessageType getByCmd(String cmd) {
+        if (cmd == null) {
+            return null;
+        }
         return switch (cmd) {
             case "AR" -> MessageType.AnswerRequest;
             case "MA" -> MessageType.MetaNodeAdditions;

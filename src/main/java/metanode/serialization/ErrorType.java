@@ -50,8 +50,8 @@ public enum ErrorType {
     public static ErrorType getByCode(int code) {
         return switch (code) {
             case 0 -> ErrorType.None;
-            case 10 -> ErrorType.IncorrectPacket;
-            case 20 -> ErrorType.System;
+            case 10 -> ErrorType.System;
+            case 20 -> ErrorType.IncorrectPacket;
             default -> null;
         };
 

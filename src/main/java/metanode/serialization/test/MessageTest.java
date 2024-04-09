@@ -308,5 +308,14 @@ public class MessageTest {
         assertEquals(0, msg.getAddrList().size());
     }
 
+    @Test
+    void encodeErrorType() throws IOException {
+        byte[] buf = new byte[]{66, 20, -2, 1, 1, 1, 1, 1, 11, -72};
+        Message m = new Message(buf);
+        byte[] buf2 = m.encode();
+        assertEquals(buf, buf2);
+
+    }
+
 
 }
