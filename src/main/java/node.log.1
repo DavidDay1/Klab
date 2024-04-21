@@ -1,58 +1,58 @@
-Apr 01, 2024 1:45:55 PM klab.app.socketHandler setNodeSocket
-INFO: Setting node socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4004]
-Apr 01, 2024 1:45:55 PM klab.app.socketHandler setDownloadSocket
-INFO: Setting download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4005]
-Apr 01, 2024 1:45:55 PM klab.app.connectionHandler lambda$listenForDownload$1
+Apr 21, 2024 4:07:04 PM klab.app.socketHandler setNodeSocket
+INFO: Setting node socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4003]
+Apr 21, 2024 4:07:04 PM klab.app.socketHandler setDownloadSocket
+INFO: Setting download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4002]
+Apr 21, 2024 4:07:04 PM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Uploading file: inside of listenForDownload
-Apr 01, 2024 1:46:02 PM klab.app.ThreadFunctions lambda$handleIn$1
+Apr 21, 2024 4:07:13 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Apr 01, 2024 1:46:02 PM klab.app.connectionHandler establishConnection
-INFO: Connected to peer: /127.0.0.1:55705 Peer List Size: 1
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Received message: Search: ID=7AC66CB327CDAC03DC72D496271AF5 TTL=9 Routing=DEPTHFIRST Search=bob
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Processing searchSearch: ID=7AC66CB327CDAC03DC72D496271AF5 TTL=9 Routing=DEPTHFIRST Search=bob
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleIn$1
+Apr 21, 2024 4:07:13 PM klab.app.connectionHandler establishConnection
+INFO: Connected to peer: /127.0.0.1:65456 Peer List Size: 1
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Search: ID=24833E9C41A74C86C80FACD153B099 TTL=9 Routing=DEPTHFIRST Search=bob
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing searchSearch: ID=24833E9C41A74C86C80FACD153B099 TTL=9 Routing=DEPTHFIRST Search=bob
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Received search: Search: ID=7AC66CB327CDAC03DC72D496271AF5 TTL=9 Routing=DEPTHFIRST Search=bob
-Apr 01, 2024 1:46:06 PM klab.app.socketHandler getDownloadSocket
-INFO: Download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4005]
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Created response: Response: ID=7AC66CB327CDAC03DC72D496271AF5 TTL=9 Routing=DEPTHFIRST Host=127.0.0.1:4005 [] to /127.0.0.1:55705 for search: bob
-Apr 01, 2024 1:46:06 PM klab.app.FileSearch searchByName
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Received search: Search: ID=24833E9C41A74C86C80FACD153B099 TTL=9 Routing=DEPTHFIRST Search=bob
+Apr 21, 2024 4:07:15 PM klab.app.socketHandler getDownloadSocket
+INFO: Download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4002]
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Created response: Response: ID=24833E9C41A74C86C80FACD153B099 TTL=9 Routing=DEPTHFIRST Host=127.0.0.1:4002 [] to /127.0.0.1:65456 for search: bob
+Apr 21, 2024 4:07:15 PM klab.app.FileSearch searchByName
 INFO: Searching for: bob
-Apr 01, 2024 1:46:06 PM klab.app.FileSearch searchByName
+Apr 21, 2024 4:07:15 PM klab.app.FileSearch searchByName
 INFO: In directory: testDir
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleSearch$2
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleSearch$2
 INFO: Searching for files with search string: bob
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Sending response: Response: ID=7AC66CB327CDAC03DC72D496271AF5 TTL=9 Routing=DEPTHFIRST Host=127.0.0.1:4005 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt] to /127.0.0.1:55705 for search: bob
-Apr 01, 2024 1:46:06 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Sending response: Response: ID=7AC66CB327CDAC03DC72D496271AF5 TTL=9 Routing=DEPTHFIRST Host=127.0.0.1:4005 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt] to /127.0.0.1:55705 for search: bob
-Apr 01, 2024 1:46:57 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Download Connection accepted/127.0.0.1:55710
-Apr 01, 2024 1:46:57 PM klab.app.connectionHandler lambda$listenForDownload$1
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Sending response: Response: ID=24833E9C41A74C86C80FACD153B099 TTL=9 Routing=DEPTHFIRST Host=127.0.0.1:4002 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt] to /127.0.0.1:65456 for search: bob
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleSearch$2
+INFO: Sending response: Response: ID=24833E9C41A74C86C80FACD153B099 TTL=9 Routing=DEPTHFIRST Host=127.0.0.1:4002 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt] to /127.0.0.1:65456 for search: bob
+Apr 21, 2024 4:07:32 PM klab.app.connectionHandler lambda$listenForDownload$1
+INFO: Download Connection accepted/127.0.0.1:65458
+Apr 21, 2024 4:07:32 PM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Downloading file: 8CB6934E
-Apr 01, 2024 1:46:57 PM klab.app.connectionHandler lambda$listenForDownload$1
+Apr 21, 2024 4:07:32 PM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Uploading file: inside of listenForDownload before thread
-Apr 01, 2024 1:46:57 PM klab.app.connectionHandler lambda$listenForDownload$1
+Apr 21, 2024 4:07:32 PM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Uploading file: inside of listenForDownload after thread
-Apr 01, 2024 1:46:57 PM klab.app.connectionHandler lambda$listenForDownload$1
+Apr 21, 2024 4:07:32 PM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Uploading file: inside of listenForDownload
-Apr 01, 2024 1:46:57 PM klab.app.DownloadService lambda$upload$1
+Apr 21, 2024 4:07:32 PM klab.app.DownloadService lambda$upload$1
 INFO: Downloading file: inside upload
-Apr 01, 2024 1:46:57 PM klab.app.DownloadService setFileIDToNameList
+Apr 21, 2024 4:07:32 PM klab.app.DownloadService setFileIDToNameList
 INFO: File ID: 8CB6934E File Name: bob.txt
-Apr 01, 2024 1:46:57 PM klab.app.DownloadService lambda$upload$1
+Apr 21, 2024 4:07:32 PM klab.app.DownloadService lambda$upload$1
 INFO: Downloading file with filename: bob.txt
-Apr 01, 2024 1:46:57 PM klab.app.FileSearch searchByName
+Apr 21, 2024 4:07:32 PM klab.app.FileSearch searchByName
 INFO: Searching for: bob.txt
-Apr 01, 2024 1:46:57 PM klab.app.FileSearch searchByName
+Apr 21, 2024 4:07:32 PM klab.app.FileSearch searchByName
 INFO: In directory: testDir
-Apr 01, 2024 1:46:57 PM klab.app.DownloadService lambda$upload$1
+Apr 21, 2024 4:07:32 PM klab.app.DownloadService lambda$upload$1
 INFO: uploading file: C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\testDir\bob.txt
-Apr 01, 2024 1:46:57 PM klab.app.DownloadService lambda$upload$1
+Apr 21, 2024 4:07:32 PM klab.app.DownloadService lambda$upload$1
 INFO: Finished uploading file
-Apr 01, 2024 1:47:32 PM klab.app.ThreadFunctions lambda$handleIn$1
+Apr 21, 2024 4:07:33 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Disconnected from neighbor MessageInput is null or too short

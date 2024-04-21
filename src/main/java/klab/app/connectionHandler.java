@@ -11,6 +11,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 
 import static klab.app.Node.*;
@@ -123,12 +125,17 @@ public class connectionHandler {
             String peerIp = args[1];
             int peerPort = Integer.parseInt(args[2]);
             Socket s = new Socket(peerIp, peerPort);
-            DS.getExecutor().execute(DS.download(args, s));
+            Future<?> future = DS.getExecutor().submit(DS.download(args, s, directory));
+            future.get();
 
         } catch (SocketException e) {
             System.err.println("Invalid Download Port or Address: " + e.getMessage());
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to communicate: ", e.getMessage());
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            logger.info("Download interrupted: " + e.getMessage());
         }
     }
 

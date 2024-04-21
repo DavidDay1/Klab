@@ -70,7 +70,7 @@ public class DownloadService {
      * @param s socket
      * @return runnable
      */
-    public Runnable download(String[] args, Socket s) {
+    public Runnable download(String[] args, Socket s, File directory) {
         return () -> {
             try {
                 InputStream is = s.getInputStream();
@@ -83,7 +83,7 @@ public class DownloadService {
                 int i;
                 logger.info("Received OK/Error: " + response);
                 if ("OK".equals(response)) {
-                    FileOutputStream fos = new FileOutputStream(file.getAbsoluteFile() + "\\");
+                    FileOutputStream fos = new FileOutputStream(directory.getAbsolutePath() + "\\"+ file);
                     is.transferTo(fos);
                 } else if ("ERROR".equals(response)) {
                     while ((i = is.read()) != -1) {

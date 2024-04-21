@@ -1,204 +1,30 @@
-Apr 07, 2024 8:21:28 PM klab.app.socketHandler setNodeSocket
+Apr 21, 2024 4:06:59 PM klab.app.socketHandler setNodeSocket
 INFO: Setting node socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4001]
-Apr 07, 2024 8:21:28 PM klab.app.socketHandler setDownloadSocket
-INFO: Setting download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4002]
-Apr 07, 2024 8:21:28 PM klab.app.connectionHandler lambda$listenForDownload$1
+Apr 21, 2024 4:06:59 PM klab.app.socketHandler setDownloadSocket
+INFO: Setting download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4000]
+Apr 21, 2024 4:06:59 PM klab.app.connectionHandler lambda$listenForDownload$1
 INFO: Uploading file: inside of listenForDownload
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleIn$1
+Apr 21, 2024 4:07:13 PM klab.app.commandLine run
+INFO: Connecting with directory C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\root
+Apr 21, 2024 4:07:13 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Apr 07, 2024 8:21:31 PM klab.app.connectionHandler establishConnection
-INFO: Connected to peer: /127.0.0.1:57989 Peer List Size: 1
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Received message: Search: ID=22329AB639B055CC634BE06218E950 TTL=1 Routing=BREADTHFIRST Search=urp
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Processing searchSearch: ID=22329AB639B055CC634BE06218E950 TTL=1 Routing=BREADTHFIRST Search=urp
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleIn$1
+Apr 21, 2024 4:07:13 PM klab.app.connectionHandler establishConnection
+INFO: Connected to peer: localhost/127.0.0.1:4003 Peer List Size: 1
+Apr 21, 2024 4:07:15 PM klab.app.commandLine run
+INFO: Searching peer: localhost/127.0.0.1:4003 to search for bob
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleOutSearch$0
+INFO: Searching for: bob
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Received message: Response: ID=24833E9C41A74C86C80FACD153B099 TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4002 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleIn$1
+INFO: Processing responseResponse: ID=24833E9C41A74C86C80FACD153B099 TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4002 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleIn$1
 INFO: Waiting for message
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Received search: Search: ID=22329AB639B055CC634BE06218E950 TTL=1 Routing=BREADTHFIRST Search=urp
-Apr 07, 2024 8:21:31 PM klab.app.socketHandler getDownloadSocket
-INFO: Download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4002]
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Created response: Response: ID=22329AB639B055CC634BE06218E950 TTL=1 Routing=BREADTHFIRST Host=127.0.0.1:4002 [] to /127.0.0.1:57989 for search: urp
-Apr 07, 2024 8:21:31 PM klab.app.FileSearch searchByName
-INFO: Searching for: urp
-Apr 07, 2024 8:21:31 PM klab.app.FileSearch searchByName
-INFO: In directory: root
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Searching for files with search string: urp
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Sending response: Response: ID=22329AB639B055CC634BE06218E950 TTL=1 Routing=BREADTHFIRST Host=127.0.0.1:4002 [Result: FileID=94B5AEC1 FileSize=2000000 bytes FileName=urp, Result: FileID=005B198C FileSize=30000000 bytes FileName=yurp] to /127.0.0.1:57989 for search: urp
-Apr 07, 2024 8:21:31 PM klab.app.ThreadFunctions lambda$handleSearch$2
-INFO: Sending response: Response: ID=22329AB639B055CC634BE06218E950 TTL=1 Routing=BREADTHFIRST Host=127.0.0.1:4002 [Result: FileID=94B5AEC1 FileSize=2000000 bytes FileName=urp, Result: FileID=005B198C FileSize=30000000 bytes FileName=yurp] to /127.0.0.1:57989 for search: urp
-Apr 07, 2024 8:21:31 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Download Connection accepted/127.0.0.1:57990
-Apr 07, 2024 8:21:31 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Downloading file: 005B198C
-Apr 07, 2024 8:21:31 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload before thread
-Apr 07, 2024 8:21:31 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload after thread
-Apr 07, 2024 8:21:31 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file: inside upload
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 07D6305A File Name: doggy
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B59F8C File Name: hog
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 0057DE85 File Name: ogle
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B5AEC1 File Name: urp
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 005B198C File Name: yurp
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B55EA7 File Name: yyy
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file with filename: yurp
-Apr 07, 2024 8:21:31 PM klab.app.FileSearch searchByName
-INFO: Searching for: yurp
-Apr 07, 2024 8:21:31 PM klab.app.FileSearch searchByName
-INFO: In directory: root
-Apr 07, 2024 8:21:31 PM klab.app.DownloadService lambda$upload$1
-INFO: uploading file: C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\root\yurp
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService lambda$upload$1
-INFO: Finished uploading file
-Apr 07, 2024 8:21:32 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Download Connection accepted/127.0.0.1:57991
-Apr 07, 2024 8:21:32 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Downloading file: 005B198C
-Apr 07, 2024 8:21:32 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload before thread
-Apr 07, 2024 8:21:32 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload after thread
-Apr 07, 2024 8:21:32 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file: inside upload
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 07D6305A File Name: doggy
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B59F8C File Name: hog
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 0057DE85 File Name: ogle
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B5AEC1 File Name: urp
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 005B198C File Name: yurp
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B55EA7 File Name: yyy
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file with filename: yurp
-Apr 07, 2024 8:21:32 PM klab.app.FileSearch searchByName
-INFO: Searching for: yurp
-Apr 07, 2024 8:21:32 PM klab.app.FileSearch searchByName
-INFO: In directory: root
-Apr 07, 2024 8:21:32 PM klab.app.DownloadService lambda$upload$1
-INFO: uploading file: C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\root\yurp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Finished uploading file
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Download Connection accepted/127.0.0.1:57992
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Downloading file: 94B5AEC1
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload before thread
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload after thread
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file: inside upload
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Download Connection accepted/127.0.0.1:57993
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Downloading file: 94B5AEC1
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload before thread
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 07D6305A File Name: doggy
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload after thread
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file: inside upload
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B59F8C File Name: hog
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 07D6305A File Name: doggy
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Download Connection accepted/127.0.0.1:57994
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B59F8C File Name: hog
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 0057DE85 File Name: ogle
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 0057DE85 File Name: ogle
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Downloading file: 94B5AEC1
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B5AEC1 File Name: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B5AEC1 File Name: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 005B198C File Name: yurp
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload before thread
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B55EA7 File Name: yyy
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 005B198C File Name: yurp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file with filename: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file: inside upload
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload after thread
-Apr 07, 2024 8:21:39 PM klab.app.connectionHandler lambda$listenForDownload$1
-INFO: Uploading file: inside of listenForDownload
-Apr 07, 2024 8:21:39 PM klab.app.FileSearch searchByName
-INFO: Searching for: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B55EA7 File Name: yyy
-Apr 07, 2024 8:21:39 PM klab.app.FileSearch searchByName
-INFO: In directory: root
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 07D6305A File Name: doggy
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file with filename: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B59F8C File Name: hog
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: uploading file: C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\root\urp
-Apr 07, 2024 8:21:39 PM klab.app.FileSearch searchByName
-INFO: Searching for: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 0057DE85 File Name: ogle
-Apr 07, 2024 8:21:39 PM klab.app.FileSearch searchByName
-INFO: In directory: root
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B5AEC1 File Name: urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 005B198C File Name: yurp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: uploading file: C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\root\urp
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService setFileIDToNameList
-INFO: File ID: 94B55EA7 File Name: yyy
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: Downloading file with filename: urp
-Apr 07, 2024 8:21:39 PM klab.app.FileSearch searchByName
-INFO: Searching for: urp
-Apr 07, 2024 8:21:39 PM klab.app.FileSearch searchByName
-INFO: In directory: root
-Apr 07, 2024 8:21:39 PM klab.app.DownloadService lambda$upload$1
-INFO: uploading file: C:\Users\david\Baylor\Semester6\Data_Communications\prog0\src\main\java\klab\root\urp
-Apr 07, 2024 8:21:43 PM klab.app.DownloadService lambda$upload$1
-INFO: Finished uploading file
-Apr 07, 2024 8:21:43 PM klab.app.DownloadService lambda$upload$1
-INFO: Finished uploading file
-Apr 07, 2024 8:21:43 PM klab.app.DownloadService lambda$upload$1
-INFO: Finished uploading file
-Apr 07, 2024 8:21:43 PM klab.app.ThreadFunctions lambda$handleIn$1
-INFO: Disconnected from neighbor MessageInput is null or too short
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleResponse$3
+INFO: Received response message Response: ID=24833E9C41A74C86C80FACD153B099 TTL=8 Routing=DEPTHFIRST Host=127.0.0.1:4002 [Result: FileID=8CB6934E FileSize=13 bytes FileName=bob.txt]
+Apr 21, 2024 4:07:15 PM klab.app.ThreadFunctions lambda$handleResponse$3
+INFO: Received response for search: bob from /127.0.0.1:4002
+Apr 21, 2024 4:07:32 PM klab.app.commandLine run
+INFO: Downloading file
+Apr 21, 2024 4:07:32 PM klab.app.DownloadService lambda$download$0
+INFO: Received OK/Error: OK
