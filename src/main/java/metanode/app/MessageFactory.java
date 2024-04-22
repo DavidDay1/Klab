@@ -33,7 +33,7 @@ public class MessageFactory {
      * Map of session ID to DatagramPacket
      */
 
-    public Map<DatagramPacket, Integer> sessionMap = new HashMap<>();
+    public static Map<DatagramPacket, Integer> sessionMap = new HashMap<>();
 
     /**
      * Creates a message for commands with no addresses
@@ -98,7 +98,7 @@ public class MessageFactory {
      * @return session map
      */
 
-    public Map<DatagramPacket, Integer> getSessionMap() {
+    public static Map<DatagramPacket, Integer> getSessionMap() {
         return sessionMap;
     }
 

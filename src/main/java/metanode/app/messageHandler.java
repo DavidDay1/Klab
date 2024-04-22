@@ -9,12 +9,38 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * Message Handler
+ * Handles sending and receiving messages
+ */
+
 public class messageHandler {
+
+    /**
+     * Maximum number of attempts to send a message
+     */
     private static final int MAX_ATTEMPTS = 4;
+
+    /**
+     * Socket Handler
+     */
 
     private static socketHandler sh = socketHandler.getInstance();
 
+    /**
+     * Logger
+     */
+
     Logger logger = Logger.getLogger(messageHandler.class.getName());
+
+    /**
+     * Sends a message
+     *
+     * @param packet   packet to send
+     * @param response whether or not to expect a response
+     * @return Runnable
+     * @throws IOException if error occurs
+     */
 
     public Runnable sendMessage(DatagramPacket packet, boolean response) throws IOException {
         for (int i = 0; i < MAX_ATTEMPTS; i++) {
@@ -23,14 +49,29 @@ public class messageHandler {
                 sh.getClientSocket().send(packet);
 
                 if (response) {
-                    Message m = receiveMessage();
-                    if (Objects.equals(m.getType().getCmd(), "AR")) {
-                        logger.info("Received message: " + m.getType().getCmd());
-                        System.out.println(m.toString());
-                        break;
-                    } else {
-                        System.err.println("Unexpected message type: " + m.getType().getCmd());
+                    long startTime = System.currentTimeMillis();
+                    long timeout = sh.getClientSocket().getSoTimeout();
+                    Message m = null;
+
+                    while (System.currentTimeMillis() < startTime + timeout) {
+                        m = receiveMessage();
+                        if (Objects.equals(m.getType().getCmd(), "AR")) {
+                            if (MessageFactory.getSessionMap().get(packet) == m.getSessionID() || m.getSessionID() == 0) {
+                                logger.info("Received message: " + m.getType().getCmd());
+                                System.out.println(m.toString());
+                                break;
+                            } else {
+                                System.err.println("Unexpected session ID: " + m.getSessionID());
+                            }
+                        } else {
+                            System.err.println("Unexpected message type: " + m.getType().getCmd());
+                        }
                     }
+                    if (m != null) {
+                        break;
+                    }
+                } else {
+                    break;
                 }
 
             } catch (SocketTimeoutException e) {
@@ -46,6 +87,13 @@ public class messageHandler {
         }
         return null;
     }
+
+    /**
+     * Removes zeros from Datagram padding
+     *
+     * @param buf byte array to remove zeros from
+     * @return byte array
+     */
 
 
     public byte[] removeZeros(byte[] buf) {
@@ -63,6 +111,13 @@ public class messageHandler {
 
         return result;
     }
+
+    /**
+     * Receives a message
+     *
+     * @return Message
+     * @throws IOException if error occurs
+     */
 
     public Message receiveMessage() throws IOException {
         try {
