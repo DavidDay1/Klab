@@ -13,10 +13,35 @@ import java.util.*;
  */
 
 public class Message {
+
+    /**
+     * Enum for message type
+     */
+
     private MessageType type;
+
+    /**
+     * Enum for error type
+     */
+
     private ErrorType error;
+
+    /**
+     * Session ID
+     */
+
     private int sessionID;
+
+    /**
+     * List of addresses
+     */
+
     private Set<InetSocketAddress> addressSet = new LinkedHashSet<>();
+
+    /**
+     * version should be 0b0100
+     */
+
     private static final int VERSION = 0b0100;
 
     /**
