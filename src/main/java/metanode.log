@@ -1,38 +1,46 @@
-Apr 22, 2024 5:54:13 PM metanode.app.socketHandler setClientSocket
-INFO: Setting client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:13 PM metanode.app.Client main
+Apr 23, 2024 8:53:32 AM metanode.app.socketHandler setClientSocket
+INFO: Setting client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:53:32 AM metanode.app.Client main
 INFO: Running command line interface
-Apr 22, 2024 5:54:14 PM metanode.app.messageHandler sendMessage
+Apr 23, 2024 8:54:33 AM metanode.app.messageHandler sendMessage
 INFO: Sending message: RN
-Apr 22, 2024 5:54:14 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:14 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:14 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:14 PM metanode.app.messageHandler receiveMessage
+Apr 23, 2024 8:54:33 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:33 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:33 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:33 AM metanode.app.messageHandler receiveMessage
 INFO: Received message: AR
-Apr 22, 2024 5:54:14 PM metanode.app.messageHandler sendMessage
+Apr 23, 2024 8:54:33 AM metanode.app.messageHandler sendMessage
 INFO: Received message: AR
-Apr 22, 2024 5:54:14 PM metanode.app.commandLine run
+Apr 23, 2024 8:54:33 AM metanode.app.commandLine run
 INFO: Runtime Exception: null
-Apr 22, 2024 5:54:32 PM metanode.app.messageHandler sendMessage
-INFO: Sending message: NA
-Apr 22, 2024 5:54:32 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:32 PM metanode.app.commandLine run
+Apr 23, 2024 8:54:40 AM metanode.app.messageHandler sendMessage
+INFO: Sending message: RM
+Apr 23, 2024 8:54:40 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:40 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:40 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:40 AM metanode.app.messageHandler receiveMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:40 AM metanode.app.messageHandler sendMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:40 AM metanode.app.commandLine run
 INFO: Runtime Exception: null
-Apr 22, 2024 5:54:33 PM metanode.app.messageHandler sendMessage
+Apr 23, 2024 8:54:48 AM metanode.app.messageHandler sendMessage
 INFO: Sending message: RN
-Apr 22, 2024 5:54:33 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:33 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:33 PM metanode.app.socketHandler getClientSocket
-INFO: Client socket: java.net.DatagramSocket@659a969b
-Apr 22, 2024 5:54:33 PM metanode.app.messageHandler receiveMessage
+Apr 23, 2024 8:54:48 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:48 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:48 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:48 AM metanode.app.messageHandler receiveMessage
 INFO: Received message: AR
-Apr 22, 2024 5:54:33 PM metanode.app.messageHandler sendMessage
+Apr 23, 2024 8:54:48 AM metanode.app.messageHandler sendMessage
 INFO: Received message: AR
-Apr 22, 2024 5:54:33 PM metanode.app.commandLine run
+Apr 23, 2024 8:54:48 AM metanode.app.commandLine run
 INFO: Runtime Exception: null

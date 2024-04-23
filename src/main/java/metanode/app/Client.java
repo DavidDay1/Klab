@@ -63,13 +63,11 @@ public class Client {
         try {
             InetAddress serverAddress = InetAddress.getByName(server);
 
-            System.out.println("Server Address: " + serverAddress);
             if (!(serverAddress instanceof Inet4Address)) {
                 System.err.println("Only IPv4 addresses are supported");
                 System.exit(1);
             }
 
-            System.out.println("Creating Socket with " + serverAddress + " on port " + port);
             DatagramSocket socket = new DatagramSocket();
 
 

@@ -51,7 +51,9 @@ public class messageHandler {
                 if (response) {
                     long startTime = System.currentTimeMillis();
                     long timeout = sh.getClientSocket().getSoTimeout();
+                    boolean received = false;
                     Message m = null;
+
 
                     while (System.currentTimeMillis() < startTime + timeout) {
                         m = receiveMessage();
@@ -59,6 +61,7 @@ public class messageHandler {
                             if (MessageFactory.getSessionMap().get(packet) == m.getSessionID() || m.getSessionID() == 0) {
                                 logger.info("Received message: " + m.getType().getCmd());
                                 System.out.println(m.toString());
+                                received = true;
                                 break;
                             } else {
                                 System.err.println("Unexpected session ID: " + m.getSessionID());
@@ -67,7 +70,7 @@ public class messageHandler {
                             System.err.println("Unexpected message type: " + m.getType().getCmd());
                         }
                     }
-                    if (m != null) {
+                    if (received) {
                         break;
                     }
                 } else {
