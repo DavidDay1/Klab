@@ -46,7 +46,7 @@ public class Client {
      *
      * @param args command line arguments
      * @throws UnknownHostException if the host is unknown
-     * @throws SocketException if the socket cannot be created
+     * @throws SocketException      if the socket cannot be created
      */
 
 
@@ -56,11 +56,11 @@ public class Client {
             System.exit(1);
         }
 
-        String server = args[0];
-        int port = Integer.parseInt(args[1]);
-
-
         try {
+            String server = args[0];
+            int port = Integer.parseInt(args[1]);
+
+
             InetAddress serverAddress = InetAddress.getByName(server);
 
             if (!(serverAddress instanceof Inet4Address)) {
@@ -89,10 +89,13 @@ public class Client {
             System.exit(1);
         } catch (UnknownHostException e) {
             logger.severe("Unknown host");
+            System.err.println("Unknown host");
+            System.exit(1);
+        } catch (NumberFormatException e) {
+            logger.severe("Invalid port number");
+            System.err.println("Invalid port number: " + args[1]);
             System.exit(1);
         }
-
-
     }
 
 }
