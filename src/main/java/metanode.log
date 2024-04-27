@@ -1,14 +1,24 @@
-Apr 27, 2024 1:36:03 PM metanode.app.socketHandler setClientSocket
+Apr 27, 2024 5:07:07 PM metanode.app.socketHandler setClientSocket
 INFO: Setting client socket: java.net.DatagramSocket@6dbb137d
-Apr 27, 2024 1:36:03 PM metanode.app.Client main
+Apr 27, 2024 5:07:08 PM metanode.app.Client main
 INFO: Running command line interface
-Apr 27, 2024 1:36:10 PM metanode.app.messageHandler sendMessage
+Apr 27, 2024 5:07:08 PM metanode.app.messageHandler sendMessage
 INFO: Sending message: RN
-Apr 27, 2024 1:36:10 PM metanode.app.socketHandler getClientSocket
+Apr 27, 2024 5:07:08 PM metanode.app.socketHandler getClientSocket
 INFO: Client socket: java.net.DatagramSocket@6dbb137d
-Apr 27, 2024 1:36:10 PM metanode.app.socketHandler getClientSocket
+Apr 27, 2024 5:07:08 PM metanode.app.messageHandler sendMessage
+INFO: Should receive an AR
+Apr 27, 2024 5:07:08 PM metanode.app.socketHandler getClientSocket
 INFO: Client socket: java.net.DatagramSocket@6dbb137d
-Apr 27, 2024 1:36:10 PM metanode.app.socketHandler getClientSocket
+Apr 27, 2024 5:07:08 PM metanode.app.socketHandler getClientSocket
 INFO: Client socket: java.net.DatagramSocket@6dbb137d
-Apr 27, 2024 1:36:13 PM metanode.app.commandLine run
-INFO: Runtime Exception: Cannot invoke "metanode.serialization.Message.getType()" because "<local9>" is null
+Apr 27, 2024 5:07:08 PM metanode.app.messageHandler receiveMessage
+INFO: Received message: AR
+Apr 27, 2024 5:07:08 PM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 27, 2024 5:07:09 PM metanode.app.messageHandler receiveMessage
+INFO: Received message: AR
+Apr 27, 2024 5:07:09 PM metanode.app.messageHandler sendMessage
+INFO: Received message: AR
+Apr 27, 2024 5:07:10 PM metanode.app.commandLine run
+INFO: Runtime Exception: null

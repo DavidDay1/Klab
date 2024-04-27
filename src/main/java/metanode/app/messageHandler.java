@@ -31,7 +31,7 @@ public class messageHandler {
      * Logger
      */
 
-    Logger logger = Logger.getLogger(messageHandler.class.getName());
+    Logger logger = logHandler.getLogger();
 
     /**
      * Sends a message
@@ -49,6 +49,7 @@ public class messageHandler {
                 sh.getClientSocket().send(packet);
 
                 if (response) {
+                    logger.info("Should receive an AR");
                     long startTime = System.currentTimeMillis();
                     long timeout = sh.getClientSocket().getSoTimeout();
                     boolean received = false;
@@ -61,6 +62,13 @@ public class messageHandler {
                             if (MessageFactory.getSessionMap().get(packet) == m.getSessionID() || m.getSessionID() == 0) {
                                 logger.info("Received message: " + m.getType().getCmd());
                                 System.out.println(m.toString());
+                                if (m.getError().getCode() != 0) {
+                                    if (m.getError().getCode() == 10) {
+                                        System.err.println("Error: System call failure");
+                                    } else {
+                                        System.err.println("Message Error: Incorrect packet received");
+                                    }
+                                }
                                 received = true;
                                 break;
                             } else {
@@ -74,6 +82,7 @@ public class messageHandler {
                         break;
                     }
                 } else {
+                    logger.info("No response expected");
                     break;
                 }
 
@@ -82,11 +91,7 @@ public class messageHandler {
                     logger.info("Max attempts reached, unable to send message");
                 }
                 logger.info("Failed to send message, retrying with attempt " + (i + 1) + " of " + MAX_ATTEMPTS);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
-
-
         }
         return null;
     }
@@ -99,22 +104,11 @@ public class messageHandler {
      */
 
 
-    public byte[] removeZeros(byte[] buf) {
-        int i = buf.length - 1;
-
-        while (buf[i] == 0) {
-            --i;
+    public byte[] removeZeros(byte[] buf, int len) {
+        byte[] result = new byte[len];
+        for (int i = 0; i < len; i++) {
+            result[i] = buf[i];
         }
-
-        byte[] result;
-        if (i < 4) {
-            result = new byte[4];
-        }
-        else {
-            result = new byte[i + 1];
-        }
-        System.arraycopy(buf, 0, result, 0, i + 1);
-
         return result;
     }
 
@@ -133,10 +127,13 @@ public class messageHandler {
             if (!Objects.equals(packet.getAddress(), sh.getInetAddress()) || packet.getPort() != sh.getPort()) {
                 throw new IOException("Received packet from unknown source: " + packet.getAddress() + ":" + packet.getPort());
             }
-            byte[] data = removeZeros(packet.getData());
+            int len = packet.getLength();
+            byte[] data = removeZeros(packet.getData(), len);
             Message m = new Message(data);
             logger.info("Received message: " + m.getType().getCmd());
             return m;
+        } catch (SocketTimeoutException e) {
+            throw new SocketTimeoutException("Timeout reached, no message received");
         } catch (IOException e) {
             System.err.println("Communication error: " + e.getMessage());
         } catch (IllegalArgumentException e) {

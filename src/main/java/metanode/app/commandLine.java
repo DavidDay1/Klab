@@ -39,7 +39,7 @@ public class commandLine implements Runnable {
      * Logger
      */
 
-    Logger logger = Logger.getLogger(commandLine.class.getName());
+    Logger logger = logHandler.getLogger();
 
 
     /**
