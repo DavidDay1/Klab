@@ -106,10 +106,13 @@ public class messageHandler {
             --i;
         }
 
+        byte[] result;
         if (i < 4) {
-            byte result[] = new byte[4];
+            result = new byte[4];
         }
-        byte[] result = new byte[i + 1];
+        else {
+            result = new byte[i + 1];
+        }
         System.arraycopy(buf, 0, result, 0, i + 1);
 
         return result;
