@@ -1,0 +1,46 @@
+Apr 23, 2024 8:53:32 AM metanode.app.socketHandler setClientSocket
+INFO: Setting client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:53:32 AM metanode.app.Client main
+INFO: Running command line interface
+Apr 23, 2024 8:54:33 AM metanode.app.messageHandler sendMessage
+INFO: Sending message: RN
+Apr 23, 2024 8:54:33 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:33 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:33 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:33 AM metanode.app.messageHandler receiveMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:33 AM metanode.app.messageHandler sendMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:33 AM metanode.app.commandLine run
+INFO: Runtime Exception: null
+Apr 23, 2024 8:54:40 AM metanode.app.messageHandler sendMessage
+INFO: Sending message: RM
+Apr 23, 2024 8:54:40 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:40 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:40 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:40 AM metanode.app.messageHandler receiveMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:40 AM metanode.app.messageHandler sendMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:40 AM metanode.app.commandLine run
+INFO: Runtime Exception: null
+Apr 23, 2024 8:54:48 AM metanode.app.messageHandler sendMessage
+INFO: Sending message: RN
+Apr 23, 2024 8:54:48 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:48 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:48 AM metanode.app.socketHandler getClientSocket
+INFO: Client socket: java.net.DatagramSocket@6dbb137d
+Apr 23, 2024 8:54:48 AM metanode.app.messageHandler receiveMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:48 AM metanode.app.messageHandler sendMessage
+INFO: Received message: AR
+Apr 23, 2024 8:54:48 AM metanode.app.commandLine run
+INFO: Runtime Exception: null

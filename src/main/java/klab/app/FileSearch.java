@@ -6,25 +6,29 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static klab.app.Node.logger;
 
 /**
  * Class for searching files in a directory
  * @version 1.0
  */
 
-public class FileSearch implements FilenameFilter {
+public class FileSearch {
 
-    String name;
+    private String name;
+    private String fileID;
 
     /**
      * Constructor for FileSearch
      * @param name name of file to search for
      */
 
-    public FileSearch(String name) {
+    public FileSearch(String name, String fileID) {
         this.name = name;
+        this.fileID = fileID;
     }
+
 
     /**
      * Method for accepting files
@@ -33,12 +37,27 @@ public class FileSearch implements FilenameFilter {
      * @return true if file is found, false otherwise
      */
 
-    public boolean accept(File dir, String name) {
+    public boolean acceptByName(File dir, String name) {
         if (name.equals("")){
             return false;
         }
         return name.contains(this.name);
     }
+
+    /**
+     * Method for accepting files by ID
+     * @param dir directory to search
+     * @param id id of file to search for
+     * @return true if file is found, false otherwise
+     */
+
+    public boolean acceptByID(File dir, String id) {
+        if (fileID.equals("")){
+            return false;
+        }
+        return id.equals(this.fileID);
+    }
+
 
     /**
      * Method for searching files
@@ -47,13 +66,41 @@ public class FileSearch implements FilenameFilter {
      * @return list of files found
      */
 
-    public static List<File> search(File dir, String name) {
-        FileSearch filter = new FileSearch(name);
+    public static List<File> searchByName(File dir, String name) {
+        logger.info("Searching for: " + name);
+        logger.info("In directory: " + dir.getName());
+        FileSearch filter = new FileSearch(name, null);
+        return search(dir, filter::acceptByName);
+    }
+
+    /**
+     * Method for searching files by ID
+     * @param dir directory to search
+     * @param fileID id of file to search for
+     * @return file found
+     */
+    public static File searchByID(File dir, String fileID) {
+        logger.info("Searching for: " + fileID);
+        logger.info("In directory: " + dir.getName());
+        FileSearch filter = new FileSearch(null, fileID);
+        File[] file = dir.listFiles(filter::acceptByID);
+        if (file.length == 0) {
+            return null;
+        }
+        return file[0];
+    }
+
+
+    /**
+     * Method for searching files
+     * @param dir directory to search
+     * @param filter filter to use
+     * @return list of files found
+     */
+    private static List<File> search(File dir, FilenameFilter filter) {
         List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles(filter)));
 
-        files = files.stream()
-                .sorted(Comparator.comparingLong(File::length))
-                .toList();
+        files.sort(Comparator.comparing(File::length));
 
         return files;
     }

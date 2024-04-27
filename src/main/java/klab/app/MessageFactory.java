@@ -3,6 +3,7 @@ package klab.app;
 import klab.serialization.*;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.List;
 
@@ -15,7 +16,15 @@ public class MessageFactory {
     /**
      * Message ID
      */
-    public byte[] msgID = new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private byte[] msgID = new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+    private MessageFactory(){
+        setMsgID();
+    }
+
+    public static synchronized MessageFactory getInstance(){
+        return new MessageFactory();
+    }
 
     /**
      * Set the message ID to a random value
@@ -80,7 +89,11 @@ public class MessageFactory {
         //System.out.println("Search Response for " + s.getSearchString() + ":\nDownload host: " + r.getResponseHost());
         for (Result result : r.getResultList()) {
             //System.out.println("\t" + result.getFileName() + ": ID " + String.format("%X", ByteBuffer.wrap(result.getFileID()).getInt()) + "(" + result.getFileSize() + " bytes)");
-            message += "\t" + result.getFileName() + ": ID " + String.format("%X", ByteBuffer.wrap(result.getFileID()).getInt()) + "(" + result.getFileSize() + " bytes)\n";
+            message += "\t" + result.getFileName() + ": ID ";
+            for (int i = 0; i < result.getFileID().length; i++) {
+                message += String.format("%02X", result.getFileID()[i]);
+            }
+            message +="(" + result.getFileSize() + " bytes)\n";
         }
         //System.out.print("> ");
         message += "> ";
@@ -100,5 +113,23 @@ public class MessageFactory {
             Result result = new Result(fileID, f.length(), f.getName());
             r.addResult(result);
         }
+    }
+
+    /**
+     * Generate a file ID
+     * @param f file
+     * @return file ID
+     */
+    public static byte[] generateFileID(File f) {
+        return ByteBuffer.allocate(4).putInt(f.hashCode()).array();
+    }
+
+    /**
+     * Convert a byte array to a hex string
+     * @return hex string
+     */
+
+    public static byte[] hexStringToByteArray(String s) {
+        return new BigInteger(s, 16).toByteArray();
     }
 }

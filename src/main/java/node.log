@@ -1,2 +1,6 @@
-Mar 26, 2024 4:34:04 PM klab.app.Node main
-INFO: Connected to neighbor at: 172.19.48.1:4000
+Apr 22, 2024 10:22:30 AM klab.app.socketHandler setNodeSocket
+INFO: Setting node socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4001]
+Apr 22, 2024 10:22:30 AM klab.app.socketHandler setDownloadSocket
+INFO: Setting download socket: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=4000]
+Apr 22, 2024 10:22:30 AM klab.app.connectionHandler lambda$listenForDownload$1
+INFO: Uploading file: inside of listenForDownload
